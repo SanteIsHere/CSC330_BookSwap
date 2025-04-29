@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS file -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <title>SCSU Bookswap</title>
+    <title>{% block title %}SCSU Bookswap{% endblock %}</title>
 </head>
 <body>
     {% block content %}

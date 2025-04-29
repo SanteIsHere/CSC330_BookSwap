@@ -1,17 +1,10 @@
 {% extends 'base.html' %}
-
+{% block title %}Login{% endblock %}
 {% block content %}
-    <main>
-        <div id="welcome-content">
-            <h1>Login</h1>
-            <!-- Login form: HTTP method POST to submit data to server -->
-            <form method="post">
-                <a class="btn" href="{{ url_for('main.welcome') }}">LOGIN</a>
-                <!-- Registration link unimplemented currently -->
-                <a class="btn" href="#">SIGN UP</a>
-            </form>
-        </div>
-    </main>
-    <footer>
-    </footer>
+<form method="post">
+    <!-- {{ form.hidden_tag() }} -->
+    {{ form.email(placeholder="SCSU E-mail Address") }}
+    {{ form.password(placeholder="PASSWORD") }}
+    {{ form.submit() }}
+</form>
 {% endblock %}

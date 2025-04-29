@@ -44,3 +44,7 @@ h1 {
 }
 
 /* Welcome route END */
+
+form input {
+ background-color: lightgrey;
+}
