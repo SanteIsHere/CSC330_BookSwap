@@ -1,0 +1,32 @@
+:root {
+    /* Define SCSU colors */
+    /* For headings (text color) */
+    --reflex-blue: rgb(0, 51, 153);
+    /* Accent */
+    --golden-yellow: rgb(255, 204, 64);
+}
+
+body {
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    height: 100%;
+}
+
+h1 {
+    color: var(--reflex-blue);
+}
+
+#welcome-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    background-color: var(--golden-yellow);
+    padding: 30px 10px;
+    text-decoration: none;
+    width: 20%;
+    text-align: center;
+}
