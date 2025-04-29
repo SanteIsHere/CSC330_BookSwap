@@ -4,9 +4,11 @@
     <main>
         <div id="welcome-content">
             <h1>Welcome to the SCSU Book Swap</h1>
-            <a class="btn" href="{{ url_for('main.welcome') }}">LOGIN</a>
-            <!-- Registration link unimplemented currently -->
-            <a class="btn" href="#">SIGNUP</a>
+            <div id="btn-container">
+                <a class="btn" href="{{ url_for('main.welcome') }}">LOGIN</a>
+                <!-- Registration link unimplemented currently -->
+                <a class="btn" href="#">SIGN UP</a>
+            </div>
             <img src="{{ url_for('static', filename='images/SCSU_LogoRGB.png') }}" style="width: 300px;">
         </div>
     </main>

@@ -15,18 +15,32 @@ h1 {
     color: var(--reflex-blue);
 }
 
+/* Welcome route START */
+
 #welcome-content {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 30px;
     justify-content: center;
     align-items: center;
+}
+
+#btn-container {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    gap: 30px;
 }
 
 .btn {
     background-color: var(--golden-yellow);
     padding: 30px 10px;
     text-decoration: none;
-    width: 20%;
+    /* width: 50%; */
+    font-size: xx-large;
     text-align: center;
+    color: var(--reflex-blue);
+    font-weight: bolder;
 }
+
+/* Welcome route END */
