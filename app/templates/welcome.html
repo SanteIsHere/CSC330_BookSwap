@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Metadata -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Title for welcome page -->
-    <title>Welcome!</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <main>
         <h1>Welcome to the SCSU Book Swap</h1>
     </main>
     <footer>
-        
+        <img src="{{ url_for('static', filename='images/SCSU_LogoRGB.png') }}" alt="" srcset="">
     </footer>
-</body>
-</html>
+{% endblock %}
