@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main>
+        <div id="welcome-content">
+            <h1>Login</h1>
+            <!-- Login form: HTTP method POST to submit data to server -->
+            <form method="post">
+                <a class="btn" href="{{ url_for('main.welcome') }}">LOGIN</a>
+                <!-- Registration link unimplemented currently -->
+                <a class="btn" href="#">SIGN UP</a>
+            </form>
+        </div>
+    </main>
+    <footer>
+    </footer>
+{% endblock %}
