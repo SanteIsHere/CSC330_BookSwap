@@ -41,7 +41,7 @@ h1 {
     text-align: center;
     color: var(--reflex-blue);
     font-weight: bolder;
-    transition: opacity 0.25s ease, text-decoration 0.25 ease;
+    transition: all 0.25s ease;
 }
 
 .btn-secondary {
@@ -53,10 +53,11 @@ h1 {
     font-size: small;
     text-align: center;
     font-weight: bold;
-    transition: opacity 0.55s ease, text-decoration 0.55 ease ;
+    transition: all 0.25 ease;
 }
 
-.btn-main:hover, btn-secondary:hover {
+.btn-main:hover,
+btn-secondary:hover {
     opacity: 50%;
     text-decoration: underline;
 }
