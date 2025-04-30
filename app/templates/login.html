@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Login{% endblock %}
 {% block content %}
-<div id="login-cont">
+<div id="form-cont">
     <!-- `nav` container holds 'Back' anchor - redirecting to home page. And "Login" heading. -->
-    <nav>
+    <nav class="form-nav">
         <a id="back-btn" class="btn-secondary" href={{ url_for('main.welcome')  }}>Back</a>
         <h1>Login</h1>
     </nav>

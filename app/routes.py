@@ -9,9 +9,19 @@ def welcome():
     return render_template("welcome.html")
 
 
-@bp.route('/login', methods=['GET', 'POST'])
+@bp.route('/login/', methods=['GET', 'POST'])
 def login():
     # Initialize login form
     login_form = LoginForm()
 
+    # Render the `login.html` template
     return render_template('login.html', form=login_form)
+
+
+@bp.route('/register/', methods=['GET', 'POST'])
+def register():
+    # Initialize registration form
+    registration_form = RegisterForm()
+
+    # Render the `register.html` template
+    return render_template('register.html', form=registration_form)
