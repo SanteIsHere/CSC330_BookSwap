@@ -25,3 +25,22 @@ def register():
 
     # Render the `register.html` template
     return render_template('register.html', form=registration_form)
+
+
+@bp.route('/profile/')
+def profile():
+    return render_template('profile.html')
+
+
+@bp.route('/listings')
+def listings_view():
+    # TODO: Implement this route
+    pass
+
+
+@bp.route('/create_listing')
+def create_listing():
+    # TODO: Implement this route
+    pass
+
+# TODO: Implement logout route and functionality
