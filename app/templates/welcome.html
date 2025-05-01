@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main>
+        <div class="content-nav">
+            <h1>Welcome to the SCSU Book Swap</h1>
+            <div id="btn-container">
+                <!-- `main` refers to the blueprint defined in `routes.py` -->
+                <a class="btn-main" href="{{ url_for('main.login') }}">LOGIN</a>
+                <a class="btn-main" href="{{ url_for('main.register') }}">SIGN UP</a>
+            </div>
+            <img src="{{ url_for('static', filename='images/SCSU_LogoRGB.png') }}" style="width: 300px;">
+        </div>
+    </main>
+    <footer>
+    </footer>
+{% endblock %}

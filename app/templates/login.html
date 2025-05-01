@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div id="form-cont">
+    <!-- `nav` container holds 'Back' anchor - redirecting to home page. And "Login" heading. -->
+    <nav>
+        <a id="back-btn" class="btn-secondary" href={{ url_for('main.welcome')  }}>Back</a>
+        <h1>Login</h1>
+    </nav>
+    <!-- Form for the document. User logs in by entering their (valid) credentials. Uses forms defined in `forms.py`. -->
+    <form method="post">
+        <!-- {{ form.hidden_tag() }} -->
+        {{ form.email(placeholder="SCSU E-mail Address", class="form-text-field") }}
+        {{ form.password(placeholder="PASSWORD", class="form-text-field") }}
+        {{ form.submit(class="form-submit") }}
+    </form>
+</div>
+{% endblock %}

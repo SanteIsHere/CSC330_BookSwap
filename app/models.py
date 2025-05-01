@@ -32,6 +32,3 @@ class User(UserMixin,db.Model):
         self.userID = userID
         self.email = email
         self.pwd = pwd
-        
-    
-
