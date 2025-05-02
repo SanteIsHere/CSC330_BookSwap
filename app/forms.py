@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm  # For form creation
 # Fields for forms
 from wtforms import StringField, PasswordField, SubmitField
 # Validation mechanisms
-from wtforms.validators import DataRequired, EqualTo, Length
+from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
 
 
 class LoginForm(FlaskForm):
@@ -13,10 +13,17 @@ class LoginForm(FlaskForm):
 
 class RegisterForm(FlaskForm):
     email = StringField('E-mail', validators=[
-        DataRequired(), Length(min=4)])
+        DataRequired(), Email(), Length(min=4)])
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
     major = StringField('Major', validators=[DataRequired()])
     password = PasswordField('Confirm Password', validators=[
         DataRequired(), EqualTo('password')])
     submit = SubmitField('Create Account')
+
+    def validate_email(self, field):
+        """
+        Ensure the email ends with '@southernct.edu'
+        """
+        if not field.data.lower().endswith('@southernct.edu'):
+            raise ValidationError('E-mail must be a Southern CT address')

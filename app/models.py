@@ -2,7 +2,7 @@ from . import db, login_manager
 from flask_login import UserMixin
 
 
-class User(UserMixin,db.Model): 
+class User(UserMixin, db.Model):
     """
     User object to represent a user in the system.
 
@@ -16,19 +16,21 @@ class User(UserMixin,db.Model):
     """
     __tablename__ = 'User'
 
-    userID = db.Column(db.Integer(), primary_key=True, nullable = False)
+    userID = db.Column(db.Integer(), primary_key=True, nullable=False)
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
     major = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(50), nullable = False)
-    pwd = db.Column(db.String(50), nullable = False)
+    email = db.Column(db.String(50), nullable=False)
+    pwd = db.Column(db.String(50), nullable=False)
 
-
-
-    def __init__(self, fname,lname, major, userID, email, pwd):
+    def __init__(self, fname, lname, major, email, pwd):
         self.first_name = fname
         self.last_name = lname
         self.major = major
-        self.userID = userID
         self.email = email
         self.pwd = pwd
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
