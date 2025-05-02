@@ -16,19 +16,13 @@ class User(UserMixin, db.Model):
     """
     __tablename__ = 'User'
 
-    userID = db.Column(db.Integer(), primary_key=True, nullable=False)
-    first_name = db.Column(db.String(100), nullable=False)
-    last_name = db.Column(db.String(100), nullable=False)
+    userID = db.Column(db.Integer, primary_key=True,
+                       nullable=False, autoincrement=True)
+    fname = db.Column(db.String(100), nullable=False)
+    lname = db.Column(db.String(100), nullable=False)
     major = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(50), nullable=False, unique=True)
     pwd = db.Column(db.String(50), nullable=False)
-
-    def __init__(self, fname, lname, major, email, pwd):
-        self.first_name = fname
-        self.last_name = lname
-        self.major = major
-        self.email = email
-        self.pwd = pwd
 
 
 @login_manager.user_loader

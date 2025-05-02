@@ -20,8 +20,11 @@ def login():
     # Check if form was submitted
     if login_form.validate_on_submit():
 
-        # Retrieve user from the database
-        user = User.query.filter_by(email=login_form.email)
+        # Attempt to retrieve user from the database - from input email
+        user = User.query.filter_by(email=login_form.email.data).first()
+
+        # # DEBUG
+        # print("User found: ", user)
 
         if user:
             # If the user is successfully retrieved, log them in
@@ -45,15 +48,19 @@ def register():
     if reg_form.validate_on_submit():
 
         # Create new user with form input
-        user = User(email=reg_form.email, fname=reg_form.first_name,
-                    lname=reg_form.last_name, major=reg_form.major,
-                    pwd=reg_form.password)
+        user = User(email=reg_form.email.data, fname=reg_form.first_name.data,
+                    lname=reg_form.last_name.data, major=reg_form.major.data,
+                    pwd=reg_form.password.data)
 
         # Add new user to database
         db.session.add(user)
         db.session.commit()
         flash('Account Created! Redirecting to profile...')
         return redirect(url_for('main.profile'))
+
+    # # DEBUG
+    # print("Form submitted: ", reg_form.validate_on_submit())
+    # print("Errors:", reg_form.errors)
 
     # Render the `register.html` template
     return render_template('register.html', form=reg_form)

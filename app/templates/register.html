@@ -10,7 +10,7 @@
 
     <!-- Form for the document. User logs in by entering their (valid) credentials. Uses forms defined in `forms.py`. -->
     <form method="post">
-        <!-- {{ form.hidden_tag() }} -->
+        {{ form.hidden_tag() }}
         {{ form.first_name(placeholder="First name", class="form-text-field") }}
         {{ form.last_name(placeholder="Last name", class="form-text-field") }}
         {{ form.major(placeholder="Your major", class="form-text-field") }}

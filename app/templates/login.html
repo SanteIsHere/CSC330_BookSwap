@@ -9,7 +9,7 @@
     </nav>
     <!-- Form for the document. User logs in by entering their (valid) credentials. Uses forms defined in `forms.py`. -->
     <form method="post">
-        <!-- {{ form.hidden_tag() }} -->
+        {{ form.hidden_tag() }}
         {{ form.email(placeholder="SCSU E-mail Address", class="form-text-field") }}
         {{ form.password(placeholder="PASSWORD", class="form-text-field") }}
         {{ form.submit(class="form-submit") }}
