@@ -55,6 +55,6 @@ class CreateListingForm(FlaskForm):
         DataRequired(), NumberRange(min=0)
     ])
 
-    submit = SubmitField('Post Listing')
+    submit = SubmitField('PUBLISH')
 
 
