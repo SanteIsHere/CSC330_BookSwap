@@ -26,3 +26,35 @@ class RegisterForm(FlaskForm):
         """
         if not field.data.lower().endswith('@southernct.edu'):
             raise ValidationError('E-mail must be a Southern CT address')
+
+
+
+from flask_wtf import FlaskForm
+from wtforms import StringField, DecimalField, SubmitField, FileField
+from wtforms.validators import DataRequired, Length, NumberRange
+from flask_wtf.file import FileAllowed
+
+class CreateListingForm(FlaskForm):
+    title = StringField('Book Title', validators=[
+        DataRequired(), Length(max=100)
+    ])
+
+    author = StringField('Author', validators=[
+        DataRequired(), Length(max=100)
+    ])
+
+    course = StringField('Class Used For', validators=[
+        DataRequired(), Length(max=100)
+    ])
+
+    image = FileField('Upload Book Image', validators=[
+        FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')
+    ])
+
+    price = DecimalField('Asking Price ($)', validators=[
+        DataRequired(), NumberRange(min=0)
+    ])
+
+    submit = SubmitField('PUBLISH')
+
+
