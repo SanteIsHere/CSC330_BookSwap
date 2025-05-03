@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div id="form-cont">
+    <!-- `nav` container holds 'Back' anchor - redirecting to home page. And "Login" heading. -->
+    <nav>
+        <a id="back-btn" class="btn-secondary" href={{ url_for('main.welcome')  }}>Back</a>
+        <h1>Create an account</h1>
+    </nav>
+
+    <!-- Form for the document. User logs in by entering their (valid) credentials. Uses forms defined in `forms.py`. -->
+    <form method="post">
+        {{ form.hidden_tag() }}
+        {{ form.first_name(placeholder="First name", class="form-text-field") }}
+        {{ form.last_name(placeholder="Last name", class="form-text-field") }}
+        {{ form.major(placeholder="Your major", class="form-text-field") }}
+        {{ form.email(placeholder="SCSU E-mail Address", class="form-text-field") }}
+
+        <!-- Display email input error messages (via flash) -->
+        {% if form.email.errors %}
+            <ul class="form-errors">
+            {% for error in form.email.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+
+        {{ form.password(placeholder="Create password", class="form-text-field") }}
+        {{ form.submit(class="form-submit") }}
+    </form>
+</div>
+{% endblock %}

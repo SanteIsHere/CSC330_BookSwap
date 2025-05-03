@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}View Listings{% endblock %}
+
+{% block content %}
+<nav>
+    <div id="nav-elements">
+        <!-- Logo links to profile -->
+        <a href="{{ url_for('main.profile') }}">
+            <img id="nav-logo" src="{{ url_for('static', filename='images/SCSU_LogoRGB.png') }}" style="width: 100px;">
+        </a>
+
+        <!-- Log out button -->
+        <a id="logout-btn" class="btn-secondary" href="{{ url_for('main.logout') }}">Log Out</a>
+    </div>
+
+    <h1>SCSU BOOK SWAP</h1>
+    <h2>VIEW LISTINGS</h2>
+</nav>
+
+<div id="listings-feed">
+    {% for listing in listings %}
+        <div class="listing-card">
+            <p class="posted-by">Posted by {{ listing.user_fname }} {{ listing.user_lname }}</p>
+
+            <img src="{{ url_for('static', filename='uploads/' + listing.image_filename) }}" alt="Book Image" class="listing-image">
+
+            <div class="listing-details">
+                <h3>{{ listing.title }}</h3>
+                <p><strong>Author:</strong> {{ listing.author }}</p>
+                <p><strong>Course:</strong> {{ listing.course }}</p>
+                <p><strong>Price:</strong> ${{ listing.price }}</p>
+            </div>
+
+            {% if listing.comments %}
+            <div class="listing-comments">
+                <h4>Comments:</h4>
+                <p>{{ listing.comments }}</p>
+            </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

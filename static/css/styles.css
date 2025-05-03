@@ -1,0 +1,172 @@
+:root {
+    /* Define SCSU colors */
+    /* For headings (text color) */
+    --reflex-blue: rgb(0, 51, 153);
+    /* Accent */
+    --golden-yellow: rgb(255, 204, 64);
+}
+
+body {
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    height: 100%;
+}
+
+h1 {
+    color: var(--reflex-blue);
+    font-size: xxx-large;
+}
+
+
+.content-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+#btn-container {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    gap: 30px;
+}
+
+.btn-main {
+    background-color: var(--golden-yellow);
+    padding: 30px 10px;
+    text-decoration: none;
+    /* width: 50%; */
+    font-size: xx-large;
+    text-align: center;
+    color: var(--reflex-blue);
+    font-weight: bolder;
+    transition: all 0.25s ease;
+}
+
+.btn-secondary {
+    background-color: lightgray;
+    padding: 20px;
+    text-decoration: none;
+    /* width: 50%; */
+    color: black;
+    font-size: small;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.25 ease;
+}
+
+.btn-main:hover,
+btn-secondary:hover {
+    opacity: 50%;
+    text-decoration: underline;
+}
+
+#back-btn {
+    align-self: flex-start;
+}
+
+#logout-btn {
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+#nav-logo {
+    align-self: flex-start;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+}
+
+#nav-elements {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+#form-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 50%;
+    align-items: center;
+}
+
+.form-text-field {
+    background-color: lightgrey;
+    color: black;
+    font-weight: bolder;
+    border: none;
+    opacity: 1;
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 60px;
+    font-size: larger;
+    width: 50%;
+}
+
+.form-text-field::placeholder {
+    color: black;
+    opacity: 0.6;
+    font-weight: bold;
+}
+
+.form-text-field::placeholder:click {
+    opacity: 0;
+}
+
+.form-submit {
+    border: none;
+    background-color: var(--golden-yellow);
+    color: var(--reflex-blue);
+    font-size: xx-large;
+    padding: 10px 70px;
+    transition: opacity 0.25s ease;
+}
+
+.form-submit:hover {
+    opacity: 50%;
+}
+
+/* Make listing image a set size */
+.listing-image {
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+/* Stylize each listing */
+.listing-card {
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: center; /* 🔥 this centers text */
+}
+
+.listing-details {
+    margin-top: 10px;
+}
+
+.listing-comments {
+    margin-top: 15px;
+}

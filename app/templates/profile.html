@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div id="form-cont">
+    <nav>
+        <div id="nav-elements">
+            <!-- TODO: Implement navigation/redirect back to home page -->
+            <img id="nav-logo" src="{{ url_for('static', filename='images/SCSU_LogoRGB.png') }}"
+            style="width: 100px;">
+            <!-- TODO: Implement proper logout functionality (via route) -->
+            <a id="logout-btn" class="btn-secondary" href={{ url_for('main.welcome') }}>Log Out</a>
+        </div>
+        <h1>What would you like to do?</h1>
+    </nav>
+    <div class="content-nav">
+        <!-- TODO: Implement the `listings_view` and `create_listing` routes (and templates) -->
+        <a href={{ url_for('main.view_listings') }} class="btn-main">View Listings</a>
+        <a href={{ url_for('main.create_listing') }} class="btn-main">Create a Listing</a>
+    </div>
+</div>
+{% endblock %}
