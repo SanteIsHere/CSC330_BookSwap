@@ -24,6 +24,13 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(50), nullable=False, unique=True)
     pwd = db.Column(db.String(50), nullable=False)
 
+    def get_id(self):
+        '''
+        Retrieves the user's ID when logging in to the
+        application.
+        '''
+        return str(self.userID)
+
 
 @login_manager.user_loader
 def load_user(user_id):

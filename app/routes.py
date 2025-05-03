@@ -30,7 +30,7 @@ def login():
             # If the user is successfully retrieved, log them in
             login_user(user)
             # And redirect to homepage
-            return redirect(url_for('main.welcome'))
+            return redirect(url_for('main.profile'))
         else:
             # User not found
             flash('Invalid username or password. Try again.')
@@ -55,8 +55,9 @@ def register():
         # Add new user to database
         db.session.add(user)
         db.session.commit()
-        flash('Account Created! Redirecting to profile...')
-        return redirect(url_for('main.profile'))
+        flash('Account Created! Redirecting to login page...')
+        # Redirect the user to the login page
+        return redirect(url_for('main.login'))
 
     # # DEBUG
     # print("Form submitted: ", reg_form.validate_on_submit())
@@ -67,8 +68,10 @@ def register():
 
 
 @bp.route('/profile/')
+@login_required
 def profile():
-    return render_template('profile.html')
+    # Pass current user instance to the profile template
+    return render_template('profile.html', user=current_user)
 
 
 @bp.route('/listings')

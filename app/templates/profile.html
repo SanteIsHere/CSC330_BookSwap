@@ -10,7 +10,7 @@
             <!-- TODO: Implement proper logout functionality (via route) -->
             <a id="logout-btn" class="btn-secondary" href={{ url_for('main.welcome') }}>Log Out</a>
         </div>
-        <h1>What would you like to do?</h1>
+        <h1>Hello {{ user.fname }}! What would you like to do?</h1>
     </nav>
     <div class="content-nav">
         <!-- TODO: Implement the `listings_view` and `create_listing` routes (and templates) -->
