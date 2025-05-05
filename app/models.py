@@ -24,12 +24,26 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(50), nullable=False, unique=True)
     pwd = db.Column(db.String(50), nullable=False)
 
-    def get_id(self):
-        '''
-        Retrieves the user's ID when logging in to the
-        application.
-        '''
-        return str(self.userID)
+# TATIANA
+
+
+class Listing(db.Model):
+    """
+    Represents a textbook listing posted by a user.
+    """
+    __tablename__ = 'Listing'
+
+    listingID = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(100), nullable=False)
+    author = db.Column(db.String(100), nullable=False)
+    course = db.Column(db.String(100), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    image_filename = db.Column(db.String(200), nullable=True)
+    comments = db.Column(db.String(500), nullable=True)
+
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        'User.userID'), nullable=False)
+    user = db.relationship('User', backref='listings')
 
 
 @login_manager.user_loader

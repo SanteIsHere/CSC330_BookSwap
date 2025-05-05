@@ -140,3 +140,33 @@ form {
 .form-submit:hover {
     opacity: 50%;
 }
+
+/* Make listing image a set size */
+.listing-image {
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+/* Stylize each listing */
+.listing-card {
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: center; /* 🔥 this centers text */
+}
+
+.listing-details {
+    margin-top: 10px;
+}
+
+.listing-comments {
+    margin-top: 15px;
+}

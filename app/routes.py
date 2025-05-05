@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
 from .forms import LoginForm, RegisterForm, CreateListingForm
-from .models import User
+from .models import User, Listing
 from . import db
 
 bp = Blueprint("main", __name__)
@@ -109,12 +109,35 @@ def create_listing():
     # Show the create_listing page with the form
     return render_template('create_listing.html', form=form)
 
-
+# TATIANA
+# Route to view listings
 @bp.route('/listings')
-def listings_view():
-    # TODO: Implement this route
-    pass
+def view_listings():
+    # Simulated listings (mock data)
+    dummy_listings = [
+        {
+            "title": "Algebra 2",
+            "author": "Cormen et al.",
+            "course": "MAT 120",
+            "price": 45.00,
+            "image_filename": "dummy_book_1.jpg",
+            "comments": "Some highlighting, good condition.",
+            "user_fname": "Alice",
+            "user_lname": "Johnson"
+        },
+        {
+            "title": "Organic Chemistry",
+            "author": "Axler",
+            "course": "CHE 260",
+            "price": 35.00,
+            "image_filename": "dummy_book_2.jpg",
+            "comments": "",
+            "user_fname": "Bob",
+            "user_lname": "Lee"
+        }
+    ]
 
+    return render_template('listings.html', listings=dummy_listings)
 
 # ORLANDO
 # Route to log the user out

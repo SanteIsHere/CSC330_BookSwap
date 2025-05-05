@@ -1,6 +1,14 @@
+<<<<<<< HEAD
+Flask
+Flask-WTF
+Flask-SQLAlchemy
+Flask-Login
+WTForms
+=======
 Flask
 Flask-WTF
 Flask-SQLAlchemy
 Flask-Login
 WTForms
 email-validator
+>>>>>>> origin/routes_orlando
