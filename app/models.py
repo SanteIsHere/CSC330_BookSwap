@@ -46,6 +46,36 @@ class Listing(db.Model):
     user = db.relationship('User', backref='listings')
 
 
+class Comment(db.Model):
+    """
+    Comment object to represent a comment in the system.
+
+    Attributes:
+        commentID (int): Integer of the comment ID. 
+        threadID (int): Integer of the thread ID.
+        userID (int): Integer of the user ID.
+        text (str): String of the comment text.
+        timeStamp (datetime): Date and time of the comment.
+
+    """
+    __tablename__ = 'Comment'
+
+    commentID = db.Column(db.Integer, primary_key=True,
+                          nullable=False, autoincrement=True)
+    threadID = db.Column(db.Integer, db.ForeignKey('Thread.threadID'))
+    userID = db.Column(db.Integer, db.ForeignKey('User.userID'))
+    text = db.Column(db.String(500), nullable=False)
+    timeStamp = db.Column(db.DateTime, nullable=False)
+
+
+class Book(db.Model):
+    pass
+
+
+class Thread(db.Model):
+    pass
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
