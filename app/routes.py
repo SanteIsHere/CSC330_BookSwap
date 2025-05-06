@@ -86,7 +86,7 @@ def create_listing():
         # Right now we’re not saving to the database yet
         # Just showing a success message so we can test the form
         flash("Listing submitted! (Not yet saved to the database)")
-        return redirect(url_for('main.listings_view'))
+        return redirect(url_for('main.view_listings'))
 
     # Show the create_listing page with the form
     return render_template('create_listing.html', form=form)
