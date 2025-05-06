@@ -31,8 +31,6 @@ class User(UserMixin, db.Model):
         '''
         return str(self.userID)
 
-# TATIANA
-
 
 class Book(db.Model):
 
@@ -49,7 +47,6 @@ class Book(db.Model):
     author = db.Column(db.String(50), nullable=False)
     subject = db.Column(db.String(50), nullable=False)
     notes = db.Column(db.String(50), nullable=False)
-
 
 class Listing(db.Model):
 

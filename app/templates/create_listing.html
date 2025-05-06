@@ -23,10 +23,10 @@
         {{ form.hidden_tag() }}
 
         <!-- Title -->
-        {{ form.title(placeholder="Book title", class="form-text-field") }}
-        {% if form.title.errors %}
+        {{ form.bookTitle(placeholder="Book Title", class="form-text-field") }}
+        {% if form.bookTitle.errors %}
             <ul class="form-errors">
-                {% for error in form.title.errors %}
+                {% for error in form.BookTitle.errors %}
                     <li>{{ error }}</li>
                 {% endfor %}
             </ul>
@@ -42,35 +42,67 @@
             </ul>
         {% endif %}
 
-        <!-- Image upload -->
-        {{ form.image(class="form-text-field") }}
-        {% if form.image.errors %}
+        {{ form.isbn(placeholder="ISBN (only numbers)", class="form-text-field") }}
+        {% if form.isbn.errors %}
             <ul class="form-errors">
-                {% for error in form.image.errors %}
+                {% for error in form.isbn.errors %}
                     <li>{{ error }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
 
-        <!-- Course/Class -->
-        {{ form.course(placeholder="What class did you use this for?", class="form-text-field") }}
-        {% if form.course.errors %}
+        <!-- Subject -->
+        {{ form.subject(placeholder="Subject", class="form-text-field") }}
+        {% if form.subject.errors %}
             <ul class="form-errors">
-                {% for error in form.course.errors %}
+                {% for error in form.subject.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <!-- Condition -->
+        {{ form.condition(placeholder="Condition", class="form-text-field") }}
+        {% if form.condition.errors %}
+            <ul class="form-errors">
+                {% for error in form.condition.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <!-- Notes About Condition -->
+        {{ form.notes(placeholder="Tell us more about the condition...", class="form-text-area-field") }}
+        {% if form.notes.errors %}
+            <ul class="form-errors">
+                {% for error in form.notes.errors %}
                     <li>{{ error }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
 
         <!-- Asking price -->
-        {{ form.price(placeholder="Asking price", class="form-text-field") }}
-        {% if form.price.errors %}
+        {{ form.listPrice(placeholder="Asking Price", class="form-text-field") }}
+        {% if form.listPrice.errors %}
             <ul class="form-errors">
-                {% for error in form.price.errors %}
+                {% for error in form.listPrice.errors %}
                     <li>{{ error }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
+
+        <!-- Original price -->
+        {{ form.origPrice(placeholder="Original Purchase Price", class="form-text-field") }}
+        {% if form.origPrice.errors %}
+            <ul class="form-errors">
+                {% for error in form.origPrice.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <!-- Timestamp -->
+        {{ form.timeStamp(class="form-text-field") }}
 
         <!-- Submit -->
         {{ form.submit(class="form-submit") }}
