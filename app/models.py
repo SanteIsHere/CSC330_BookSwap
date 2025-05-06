@@ -34,26 +34,40 @@ class User(UserMixin, db.Model):
 # TATIANA
 
 
+class Book(db.Model):
+
+    __tablename__ = "Book"
+
+    bookID = db.Column(db.Integer, primary_key=True,
+                       nullable=False, autoincrement=True)
+    bookTitle = db.Column(db.String(50), nullable=False)
+    origPrice = db.Column(db.Float, nullable=False)
+    listPrice = db.Column(db.Float, nullable=False)
+    condition = db.Column(db.String(50), nullable=False)
+    userID = db.Column(db.Integer, db.ForeignKey('User.userID'))
+    isbn = db.Column(db.Integer, nullable=False)
+    author = db.Column(db.String(50), nullable=False)
+    subject = db.Column(db.String(50), nullable=False)
+    notes = db.Column(db.String(50), nullable=False)
+
+
 class Listing(db.Model):
-    '''
-    Represents a textbook listing posted by a user.
-    '''
-    __tablename__ = 'Listing'
 
-    listingID = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(100), nullable=False)
-    author = db.Column(db.String(100), nullable=False)
-    course = db.Column(db.String(100), nullable=False)
-    price = db.Column(db.Float, nullable=False)
-    image_filename = db.Column(db.String(200), nullable=True)
-    comments = db.Column(db.String(500), nullable=True)
+    __tablename__ = "Listing"
 
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        'User.userID'), nullable=False)
-    user = db.relationship('User', backref='listings')
+    listingID = db.Column(db.Integer, primary_key=True,
+                          nullable=False, autoincrement=True)
+    timestamp = db.Column(db.DateTime, nullable=False)
+    bookID = db.Column(db.Integer, db.ForeignKey('Book.bookID'))
+    userID = db.Column(db.Integer, db.ForeignKey('User.userID'))
 
-    pass
-
+    # threadID = db.Column(db.Integer, primary_key=True,
+    #                      nullable=False, autoincrement=True)
+    # description = db.Column(db.String(50), nullable=False)
+    # timeStamp = db.Column(db.DateTime, nullable=False)
+    # location = db.Column(db.String(50), nullable=False)
+    # bookID = db.Column(db.Integer, db.ForeignKey('Book.bookID'))
+    # userID = db.Column(db.Integer, db.ForeignKey('User.userID'))
 
 class Comment(db.Model):
     """
@@ -71,44 +85,10 @@ class Comment(db.Model):
 
     commentID = db.Column(db.Integer, primary_key=True,
                           nullable=False, autoincrement=True)
-    threadID = db.Column(db.Integer, db.ForeignKey('Thread.threadID'))
+    listingID = db.Column(db.Integer, db.ForeignKey('Listing.listingID'))
     userID = db.Column(db.Integer, db.ForeignKey('User.userID'))
     text = db.Column(db.String(500), nullable=False)
     timeStamp = db.Column(db.DateTime, nullable=False)
-
-
-class Book(db.Model):
-    bookID = db.Column(db.Integer, primary_key=True,
-                       nullable=False, autoincrement=True)
-    bookTitle = db.Column(db.String(50), nullable=False)
-    origPrice = db.Column(db.Float, nullable=False)
-    listPrice = db.Column(db.Float, nullable=False)
-    condition = db.Column(db.String(50), nullable=False)
-    userID = db.Column(db.Integer, db.ForeignKey('User.userID'))
-    isbn = db.Column(db.Integer, nullable=False)
-    author  # TODO
-    subject  # TODO
-    notes  # TODO
-
-
-class Listing(db.Model):
-    __tablename__ = "Listing"
-
-    listingID = db.Column(db.Integer, primary_key=True,
-                          nullable=False, autoincrement=True)
-    timestamp = db.Column(db.DateTime, nullable=False)
-    # FK
-    bookID  # TODO
-    # FK
-    userID  # TODO
-
-    # threadID = db.Column(db.Integer, primary_key=True,
-    #                      nullable=False, autoincrement=True)
-    # description = db.Column(db.String(50), nullable=False)
-    # timeStamp = db.Column(db.DateTime, nullable=False)
-    # location = db.Column(db.String(50), nullable=False)
-    # bookID = db.Column(db.Integer, db.ForeignKey('Book.bookID'))
-    # userID = db.Column(db.Integer, db.ForeignKey('User.userID'))
 
 
 @login_manager.user_loader
