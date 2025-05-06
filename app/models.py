@@ -24,13 +24,20 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(50), nullable=False, unique=True)
     pwd = db.Column(db.String(50), nullable=False)
 
+    def get_id(self):
+        '''
+        Retrieves the user's ID when logging in to the
+        application.
+        '''
+        return str(self.userID)
+
 # TATIANA
 
 
 class Listing(db.Model):
-    """
+    '''
     Represents a textbook listing posted by a user.
-    """
+    '''
     __tablename__ = 'Listing'
 
     listingID = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -44,6 +51,8 @@ class Listing(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(
         'User.userID'), nullable=False)
     user = db.relationship('User', backref='listings')
+
+    pass
 
 
 class Comment(db.Model):
@@ -69,11 +78,37 @@ class Comment(db.Model):
 
 
 class Book(db.Model):
-    pass
+    bookID = db.Column(db.Integer, primary_key=True,
+                       nullable=False, autoincrement=True)
+    bookTitle = db.Column(db.String(50), nullable=False)
+    origPrice = db.Column(db.Float, nullable=False)
+    listPrice = db.Column(db.Float, nullable=False)
+    condition = db.Column(db.String(50), nullable=False)
+    userID = db.Column(db.Integer, db.ForeignKey('User.userID'))
+    isbn = db.Column(db.Integer, nullable=False)
+    author  # TODO
+    subject  # TODO
+    notes  # TODO
 
 
-class Thread(db.Model):
-    pass
+class Listing(db.Model):
+    __tablename__ = "Listing"
+
+    listingID = db.Column(db.Integer, primary_key=True,
+                          nullable=False, autoincrement=True)
+    timestamp = db.Column(db.DateTime, nullable=False)
+    # FK
+    bookID  # TODO
+    # FK
+    userID  # TODO
+
+    # threadID = db.Column(db.Integer, primary_key=True,
+    #                      nullable=False, autoincrement=True)
+    # description = db.Column(db.String(50), nullable=False)
+    # timeStamp = db.Column(db.DateTime, nullable=False)
+    # location = db.Column(db.String(50), nullable=False)
+    # bookID = db.Column(db.Integer, db.ForeignKey('Book.bookID'))
+    # userID = db.Column(db.Integer, db.ForeignKey('User.userID'))
 
 
 @login_manager.user_loader

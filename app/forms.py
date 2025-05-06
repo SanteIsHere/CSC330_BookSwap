@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm  # For form creation
 # Fields for forms
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, DecimalField, SubmitField, FileField, PasswordField
 # Validation mechanisms
-from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError
+from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError, Length, NumberRange
+from flask_wtf.file import FileAllowed
 
 
 class LoginForm(FlaskForm):
@@ -28,12 +29,6 @@ class RegisterForm(FlaskForm):
             raise ValidationError('E-mail must be a Southern CT address')
 
 
-
-from flask_wtf import FlaskForm
-from wtforms import StringField, DecimalField, SubmitField, FileField
-from wtforms.validators import DataRequired, Length, NumberRange
-from flask_wtf.file import FileAllowed
-
 class CreateListingForm(FlaskForm):
     title = StringField('Book Title', validators=[
         DataRequired(), Length(max=100)
@@ -56,5 +51,3 @@ class CreateListingForm(FlaskForm):
     ])
 
     submit = SubmitField('PUBLISH')
-
-
