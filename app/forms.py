@@ -40,7 +40,7 @@ class CreateListingForm(FlaskForm):
     ])
 
     isbn = IntegerField('ISBN (only numbers)', validators=[
-        DataRequired(), NumberRange(min)
+        DataRequired(), NumberRange(min=1, max=999)
     ])
 
     subject = StringField('Subject', validators=[
@@ -64,7 +64,7 @@ class CreateListingForm(FlaskForm):
     ])
 
     timeStamp = DateTimeField(
-        label = 'Post Time',
+        label='Post Time',
         format='%b %d %Y',
         render_kw={'readonly': True}
     )
