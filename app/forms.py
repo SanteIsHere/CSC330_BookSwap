@@ -40,7 +40,7 @@ class CreateListingForm(FlaskForm):
     ])
 
     isbn = IntegerField('ISBN (only numbers)', validators=[
-        DataRequired(), Length(max=100)
+        DataRequired(), NumberRange(min)
     ])
 
     subject = StringField('Subject', validators=[
