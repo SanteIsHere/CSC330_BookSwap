@@ -1,9 +1,10 @@
 from flask_wtf import FlaskForm  # For form creation
 # Fields for forms
-from wtforms import StringField, DecimalField, SubmitField, FileField, PasswordField
+from wtforms import StringField, DecimalField, SubmitField, FileField, PasswordField, IntegerField, TextAreaField, DateTimeField
 # Validation mechanisms
 from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError, Length, NumberRange
 from flask_wtf.file import FileAllowed
+import datetime
 
 
 class LoginForm(FlaskForm):
@@ -30,7 +31,7 @@ class RegisterForm(FlaskForm):
 
 
 class CreateListingForm(FlaskForm):
-    title = StringField('Book Title', validators=[
+    bookTitle = StringField('Book Title', validators=[
         DataRequired(), Length(max=100)
     ])
 
@@ -38,16 +39,39 @@ class CreateListingForm(FlaskForm):
         DataRequired(), Length(max=100)
     ])
 
-    course = StringField('Class Used For', validators=[
+    isbn = IntegerField('ISBN (only numbers)', validators=[
         DataRequired(), Length(max=100)
     ])
 
-    image = FileField('Upload Book Image', validators=[
-        FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')
+    subject = StringField('Subject', validators=[
+        DataRequired(), Length(max=100)
     ])
 
-    price = DecimalField('Asking Price ($)', validators=[
-        DataRequired(), NumberRange(min=0)
+    condition = StringField('Condition', validators=[
+        DataRequired(), Length(max=100)
     ])
+
+    listPrice = DecimalField('Asking Price ($)', validators=[
+        DataRequired()
+    ])
+
+    origPrice = DecimalField('Original Purchased Price ($)', validators=[
+        DataRequired()
+    ])
+
+    notes = TextAreaField('Notes (highlighted, dog-eared, etc)', validators=[
+        DataRequired()
+    ])
+
+    timeStamp = DateTimeField(
+        label = 'Post Time',
+        format='%b %d %Y',
+        render_kw={'readonly': True}
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.timeStamp.data:
+            self.timeStamp.data = datetime.date.today()
 
     submit = SubmitField('PUBLISH')

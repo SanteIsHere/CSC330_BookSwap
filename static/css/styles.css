@@ -128,6 +128,11 @@ form {
     opacity: 0;
 }
 
+.form-text-area-field {
+    width: 60%;
+    height: 20em;
+}
+
 .form-submit {
     border: none;
     background-color: var(--golden-yellow);
