@@ -39,8 +39,8 @@ class CreateListingForm(FlaskForm):
         DataRequired(), Length(max=100)
     ])
 
-    isbn = IntegerField('ISBN (only numbers)', validators=[
-        DataRequired(), NumberRange(min=1, max=999)
+    isbn = StringField('ISBN (only numbers)', validators=[
+        DataRequired(), Length(min=13, max=13)
     ])
 
     subject = StringField('Subject', validators=[
@@ -73,5 +73,6 @@ class CreateListingForm(FlaskForm):
         super().__init__(*args, **kwargs)
         if not self.timeStamp.data:
             self.timeStamp.data = datetime.date.today()
+    
 
     submit = SubmitField('PUBLISH')

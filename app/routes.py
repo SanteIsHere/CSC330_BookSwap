@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 from flask_login import login_user, logout_user, login_required, current_user
 from .forms import LoginForm, RegisterForm, CreateListingForm
-from .models import User, Listing
+from .models import User, Listing, Book
 from . import db
 
 bp = Blueprint("main", __name__)
@@ -74,22 +74,32 @@ def profile():
     return render_template('profile.html', user=current_user)
 
 
-# ORLANDO
+# ORLANDO/Justin
 # Create listing route for the user to post a listing
 @bp.route('/create_listing', methods=['GET', 'POST'])
 def create_listing():
     # Create a new instance of the CreateListingForm
-    form = CreateListingForm()
-
+    list_form = CreateListingForm()
     # If the form is submitted and the data is valid
-    if form.validate_on_submit():
-        # Right now we’re not saving to the database yet
-        # Just showing a success message so we can test the form
-        flash("Listing submitted! (Not yet saved to the database)")
+    if list_form.validate_on_submit():
+
+        book = Book(bookTitle=list_form.bookTitle.data, origPrice=list_form.origPrice.data, listPrice=list_form.listPrice.data,
+                    isbn=list_form.isbn.data, condition=list_form.condition.data, notes=list_form.notes.data, author=list_form.author.data,
+                    subject=list_form.subject.data, userID=session['_user_id'])
+        
+        db.session.add(book)
+        db.session.commit()
+        
+        # listing = Listing(timeStamp=list_form.timeStamp.data, userID=session['_user_id'])
+
+        # db.session.add(listing)
+        # db.session.commit()
+
+        flash("Listing submitted!")
         return redirect(url_for('main.view_listings'))
 
     # Show the create_listing page with the form
-    return render_template('create_listing.html', form=form)
+    return render_template('create_listing.html', form=list_form)
 
 
 # TATIANA

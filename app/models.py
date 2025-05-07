@@ -24,6 +24,12 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(50), nullable=False, unique=True)
     pwd = db.Column(db.String(50), nullable=False)
 
+    # Establish relationship between 'User' and 'Book' tables
+    user_book = db.relationship('Book', backref=db.backref('User', lazy=True))
+
+    # Establish relationship between 'User' and 'Listing' tables
+    user_listing = db.relationship('Listing', backref=db.backref('User', lazy=True))
+
     def get_id(self):
         '''
         Retrieves the user's ID when logging in to the
@@ -34,10 +40,9 @@ class User(UserMixin, db.Model):
 
 class Book(db.Model):
 
-    __tablename__ = "Book"
+    __tablename__ = 'Book'
 
-    bookID = db.Column(db.Integer, primary_key=True,
-                       nullable=False, autoincrement=True)
+    bookID = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     bookTitle = db.Column(db.String(50), nullable=False)
     origPrice = db.Column(db.Float, nullable=False)
     listPrice = db.Column(db.Float, nullable=False)
@@ -46,7 +51,10 @@ class Book(db.Model):
     isbn = db.Column(db.Integer, nullable=False)
     author = db.Column(db.String(50), nullable=False)
     subject = db.Column(db.String(50), nullable=False)
-    notes = db.Column(db.String(50), nullable=False)
+    notes = db.Column(db.String(50), nullable=True)
+
+    # Establish relationship between 'Book' table and 'Listing' table
+    book_listing = db.relationship('Listing', backref=db.backref('Book', lazy=True))
 
 class Listing(db.Model):
 
