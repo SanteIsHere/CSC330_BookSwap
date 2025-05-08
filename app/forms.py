@@ -1,19 +1,28 @@
 from flask_wtf import FlaskForm  # For form creation
 # Fields for forms
-from wtforms import StringField, DecimalField, SubmitField, FileField, PasswordField, IntegerField, TextAreaField, DateTimeField
+from wtforms import StringField, DecimalField, SubmitField, FileField, \
+    PasswordField, IntegerField, TextAreaField, DateTimeField
 # Validation mechanisms
-from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError, Length, NumberRange
-from flask_wtf.file import FileAllowed
+from wtforms.validators import DataRequired, EqualTo, Length, \
+    Email, ValidationError, Length, NumberRange, AnyOf
 import datetime
+import os
 
 
 class LoginForm(FlaskForm):
+    '''
+    Login form - used to allow a user to login with entered credentials.
+    '''
     email = StringField('SCSU Email Address', validators=[DataRequired()])
     password = PasswordField('PASSWORD', validators=[DataRequired()])
     submit = SubmitField('LOGIN')
 
 
 class RegisterForm(FlaskForm):
+    """ 
+    Registration form - takes input information from a User, creates an account
+    for the user and writes the User's account to the database.
+     """
     email = StringField('E-mail', validators=[
         DataRequired(), Email(), Length(min=4)])
     first_name = StringField('First Name', validators=[DataRequired()])
@@ -31,6 +40,9 @@ class RegisterForm(FlaskForm):
 
 
 class CreateListingForm(FlaskForm):
+    '''
+    Form responsible for creating a listing for a book.
+    '''
     bookTitle = StringField('Book Title', validators=[
         DataRequired(), Length(max=100)
     ])
@@ -73,6 +85,5 @@ class CreateListingForm(FlaskForm):
         super().__init__(*args, **kwargs)
         if not self.timeStamp.data:
             self.timeStamp.data = datetime.date.today()
-    
 
     submit = SubmitField('PUBLISH')

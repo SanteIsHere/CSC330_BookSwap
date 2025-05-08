@@ -1,30 +1,39 @@
+# Package imports
 from flask import Blueprint, render_template, redirect, url_for, flash, request, session
+# Imports for login functionality
 from flask_login import login_user, logout_user, login_required, current_user
-from .forms import LoginForm, RegisterForm, CreateListingForm
-from .models import User, Listing, Book
-from . import db
+
+# Local Imports
+from .forms import LoginForm, RegisterForm, CreateListingForm  # Forms for user input
+from .models import User, Listing, Book  # Models for DB entities
+from . import db  # Database instance import from `__init__.py`
 
 bp = Blueprint("main", __name__)
 
 
 @bp.route('/')
 def welcome():
+    '''
+    Homepage route: The first page the user is
+    presented with - at the root of the application.
+    '''
     return render_template("welcome.html")
 
 
 @bp.route('/login/', methods=['GET', 'POST'])
 def login():
+    '''
+    Login route - permitting user to enter their
+    (valid) credentials to login to their account.
+    '''
     # Initialize login form
     login_form = LoginForm()
 
     # Check if form was submitted
     if login_form.validate_on_submit():
 
-        # Attempt to retrieve user from the database - from input email
+        # Attempt to retrieve exisiting user from the database - from input email
         user = User.query.filter_by(email=login_form.email.data).first()
-
-        # # DEBUG
-        # print("User found: ", user)
 
         if user:
             # If the user is successfully retrieved, log them in
@@ -41,6 +50,9 @@ def login():
 
 @bp.route('/register/', methods=['GET', 'POST'])
 def register():
+    '''
+    Register a new user to the application.
+    '''
     # Initialize registration form
     reg_form = RegisterForm()
 
@@ -59,10 +71,6 @@ def register():
         # Redirect the user to the login page
         return redirect(url_for('main.login'))
 
-    # # DEBUG
-    # print("Form submitted: ", reg_form.validate_on_submit())
-    # print("Errors:", reg_form.errors)
-
     # Render the `register.html` template
     return render_template('register.html', form=reg_form)
 
@@ -70,6 +78,9 @@ def register():
 @bp.route('/profile/')
 @login_required
 def profile():
+    '''
+    Route to the current user's profile page.
+    '''
     # Pass current user instance to the profile template
     return render_template('profile.html', user=current_user)
 
@@ -78,22 +89,28 @@ def profile():
 # Create listing route for the user to post a listing
 @bp.route('/create_listing', methods=['GET', 'POST'])
 def create_listing():
+    '''
+    Route presenting form to create a new listing
+    with associated book
+    '''
     # Create a new instance of the CreateListingForm
     list_form = CreateListingForm()
     # If the form is submitted and the data is valid
     if list_form.validate_on_submit():
 
+        # Initialize the book using the form inputs
         book = Book(bookTitle=list_form.bookTitle.data, origPrice=list_form.origPrice.data, listPrice=list_form.listPrice.data,
                     isbn=list_form.isbn.data, condition=list_form.condition.data, notes=list_form.notes.data, author=list_form.author.data,
                     subject=list_form.subject.data, userID=session['_user_id'])
-        
-        db.session.add(book)
-        db.session.commit()
-        
-        # listing = Listing(timeStamp=list_form.timeStamp.data, userID=session['_user_id'])
 
-        # db.session.add(listing)
-        # db.session.commit()
+        # Initialize the listing
+        listing = Listing(book=book, timestamp=list_form.timeStamp.data,
+                          userID=session['_user_id'])
+
+        # Add both book and listing to the database session
+        db.session.add(book)
+        db.session.add(listing)
+        db.session.commit()  # Write permanently to the DB
 
         flash("Listing submitted!")
         return redirect(url_for('main.view_listings'))
@@ -106,7 +123,10 @@ def create_listing():
 # Route to view listings
 @bp.route('/listings')
 def view_listings():
-    # Simulated listings (mock data)
+    '''
+    Route displaying ALL active listings.
+    '''
+    # Temporary, mock listings (To be replaced with DB retrieved listings)
     dummy_listings = [
         {
             "title": "Algebra 2",
@@ -133,12 +153,14 @@ def view_listings():
     return render_template('listings.html', listings=dummy_listings)
 
 # ORLANDO
-# Route to log the user out
 
 
 @bp.route('/logout')
 @login_required  # Only logged-in users should be able to log out
 def logout():
+    '''
+    Route triggered when user logs out of the application.
+    '''
     logout_user()  # End the user’s session
     flash("You have been logged out.")  # Optional message shown on next page
     # Send them back to the welcome page
