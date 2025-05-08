@@ -45,8 +45,8 @@ class Book(db.Model):
     bookID = db.Column(db.Integer, primary_key=True,
                        nullable=False, autoincrement=True)
     bookTitle = db.Column(db.String(50), nullable=False)
-    origPrice = db.Column(db.Float, nullable=False)
-    listPrice = db.Column(db.Float, nullable=False)
+    origPrice = db.Column(db.Numeric(10, 2), nullable=False)
+    listPrice = db.Column(db.Numeric(10, 2), nullable=False)
     condition = db.Column(db.String(50), nullable=False)
     userID = db.Column(db.Integer, db.ForeignKey('User.userID'))
     isbn = db.Column(db.Integer, nullable=False)

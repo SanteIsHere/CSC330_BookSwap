@@ -12,25 +12,29 @@
             <img id="nav-logo" src="{{ url_for('static', filename='images/SCSU_LogoRGB.png') }}" style="width: 100px;">
         </a>
 
-        <!-- Log out button -->
+        <!-- Log out button - redirects to 'Logout' route -->
         <a id="logout-btn" class="btn-secondary" href="{{ url_for('main.logout') }}">Log Out</a>
     </div>
 
-    <h1>SCSU BOOK SWAP</h1>
-    <h2>VIEW LISTINGS</h2>
+    <!-- Page header -->
+    <h1>SCSU Book Swap Listings</h1>
 </nav>
 
+<!-- Container for ALL listings -->
 <div id="listings-feed">
+    <!-- Iterate through listings -->
     {% for listing in listings %}
-        <div class="listing-card">
+        <!-- Container for complete listing -->
+        <div class="listing">
+            <!-- User that posted the listing -->
             <p class="posted-by">Posted by {{ listing.User.fname }} {{ listing.User.lname}}</p>
-
-
+            
+            <!-- Container for details of the listing -->
             <div class="listing-details">
-                <h3>{{ listing.book.title }}</h3>
+                <h3>{{ listing.book.bookTitle }}</h3>
                 <p><strong>Author:</strong> {{ listing.book.author }}</p>
                 <p><strong>Subject:</strong> {{ listing.book.subject }}</p>
-                <p><strong>Price:</strong> ${{ listing.book.price }}</p>
+                <p><strong>Price:</strong> ${{ listing.book.listPrice }}</p>
             </div>
         </div>
     {% endfor %}
