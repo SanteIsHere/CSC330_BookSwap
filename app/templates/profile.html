@@ -4,13 +4,13 @@
 <div id="form-cont">
     <nav>
         <div id="nav-elements">
-            <a href="{{ url_for('main.welcome') }}">
-                <img id="nav-logo" src="{{ url_for('static', filename='images/SCSU_LogoRGB.png') }}"
+            <a href="{{ url_for('main.profile') }}">
+                <img class="nav-start" src="{{ url_for('static', filename='images/SCSU_LogoRGB.png') }}"
                 style="width: 100px;">
             </a>
             
             <!-- TODO: Implement proper logout functionality (via route) -->
-            <a id="logout-btn" class="btn-secondary" href={{ url_for('main.welcome') }}>Log Out</a>
+            <a class="btn-secondary nav-end" href={{ url_for('main.welcome') }}>Log Out</a>
         </div>
         <h1>Hello {{ user.fname }}! What would you like to do?</h1>
     </nav>

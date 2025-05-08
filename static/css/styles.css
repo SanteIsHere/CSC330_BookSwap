@@ -5,6 +5,7 @@
     --reflex-blue: rgb(0, 51, 153);
     /* Accent */
     --golden-yellow: rgb(255, 204, 64);
+    --cyan: rgb(0, 173, 235);
 }
 
 body {
@@ -166,6 +167,7 @@ form {
     display: flex;
     align-items: center;
     flex-direction: column;
+    gap: 10px;
 }
 
 
@@ -174,7 +176,7 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 33%;
+    width: 25%;
 }
 
 /* Set width for inner/child elements */
@@ -185,10 +187,24 @@ form {
 /* Stylize the listing content container */
 .listing-details {
     padding: 20px;
-    margin: 20px auto;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    background-color: whitesmoke;
+    border: 1px solid var(--cyan);
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     text-align: center; /* 🔥 this centers text */
+}
+
+#poster {
+    display: flex;
+    align-items: center;
+}
+
+#poster>img {
+    width: 8%;
+}
+
+.posted-by {
+    font-style: italic;
+    color: var(--cyan);
+    font-weight: bold;
 }

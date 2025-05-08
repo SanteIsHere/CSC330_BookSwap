@@ -9,11 +9,11 @@
     <div id="nav-elements">
         <!-- Logo links to profile -->
         <a href="{{ url_for('main.profile') }}">
-            <img id="nav-logo" src="{{ url_for('static', filename='images/SCSU_LogoRGB.png') }}" style="width: 100px;">
+            <img class="nav-start" src="{{ url_for('static', filename='images/SCSU_LogoRGB.png') }}" style="width: 100px;">
         </a>
 
         <!-- Log out button - redirects to 'Logout' route -->
-        <a id="logout-btn" class="btn-secondary" href="{{ url_for('main.logout') }}">Log Out</a>
+        <a class="btn-secondary nav-end" href="{{ url_for('main.logout') }}">Log Out</a>
     </div>
 
     <!-- Page header -->
@@ -27,7 +27,10 @@
         <!-- Container for complete listing -->
         <div class="listing">
             <!-- User that posted the listing -->
-            <p class="posted-by">Posted by {{ listing.User.fname }} {{ listing.User.lname}}</p>
+             <div id="poster">
+                <img class="prof-icon" src="{{ url_for('static', filename='images/prof_icon.png') }}">
+                <p> Posted by <span class="posted-by">{{ listing.User.fname }} {{ listing.User.lname}}</span></p>
+             </div>
             
             <!-- Container for details of the listing -->
             <div class="listing-details">
