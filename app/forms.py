@@ -1,12 +1,10 @@
 from flask_wtf import FlaskForm  # For form creation
 # Fields for forms
-from wtforms import StringField, DecimalField, SubmitField, FileField, \
-    PasswordField, IntegerField, TextAreaField, DateTimeField
+from wtforms import StringField, DecimalField, SubmitField,\
+     PasswordField, TextAreaField, DateTimeField
 # Validation mechanisms
-from wtforms.validators import DataRequired, EqualTo, Length, \
-    Email, ValidationError, Length, NumberRange, AnyOf
+from wtforms.validators import DataRequired, Length, Email, ValidationError, Length
 import datetime
-import os
 
 
 class LoginForm(FlaskForm):

@@ -25,10 +25,10 @@ class User(UserMixin, db.Model):
     pwd = db.Column(db.String(50), nullable=False)
 
     # Establish relationship between 'User' and 'Book' tables
-    user_book = db.relationship('Book', backref='User')
+    books = db.relationship('Book', backref='User')
 
     # Establish relationship between 'User' and 'Listing' tables
-    user_listing = db.relationship('Listing', backref='User')
+    listings = db.relationship('Listing', backref='User')
 
     def get_id(self):
         '''

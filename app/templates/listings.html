@@ -1,3 +1,5 @@
+<!-- Template for the route displaying all user listings. -->
+
 {% extends 'base.html' %}
 
 {% block title %}View Listings{% endblock %}
@@ -21,23 +23,15 @@
 <div id="listings-feed">
     {% for listing in listings %}
         <div class="listing-card">
-            <p class="posted-by">Posted by {{ listing.user_fname }} {{ listing.user_lname }}</p>
+            <p class="posted-by">Posted by {{ listing.User.fname }} {{ listing.User.lname}}</p>
 
-            <img src="{{ url_for('static', filename='uploads/' + listing.image_filename) }}" alt="Book Image" class="listing-image">
 
             <div class="listing-details">
-                <h3>{{ listing.title }}</h3>
-                <p><strong>Author:</strong> {{ listing.author }}</p>
-                <p><strong>Course:</strong> {{ listing.course }}</p>
-                <p><strong>Price:</strong> ${{ listing.price }}</p>
+                <h3>{{ listing.book.title }}</h3>
+                <p><strong>Author:</strong> {{ listing.book.author }}</p>
+                <p><strong>Subject:</strong> {{ listing.book.subject }}</p>
+                <p><strong>Price:</strong> ${{ listing.book.price }}</p>
             </div>
-
-            {% if listing.comments %}
-            <div class="listing-comments">
-                <h4>Comments:</h4>
-                <p>{{ listing.comments }}</p>
-            </div>
-            {% endif %}
         </div>
     {% endfor %}
 </div>

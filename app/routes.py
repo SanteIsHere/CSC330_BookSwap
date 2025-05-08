@@ -1,5 +1,5 @@
 # Package imports
-from flask import Blueprint, render_template, redirect, url_for, flash, request, session
+from flask import Blueprint, render_template, redirect, url_for, flash, session
 # Imports for login functionality
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -126,31 +126,12 @@ def view_listings():
     '''
     Route displaying ALL active listings.
     '''
-    # Temporary, mock listings (To be replaced with DB retrieved listings)
-    dummy_listings = [
-        {
-            "title": "Algebra 2",
-            "author": "Cormen et al.",
-            "course": "MAT 120",
-            "price": 45.00,
-            "image_filename": "dummy_book_1.jpg",
-            "comments": "Some highlighting, good condition.",
-            "user_fname": "Alice",
-            "user_lname": "Johnson"
-        },
-        {
-            "title": "Organic Chemistry",
-            "author": "Axler",
-            "course": "CHE 260",
-            "price": 35.00,
-            "image_filename": "dummy_book_2.jpg",
-            "comments": "",
-            "user_fname": "Bob",
-            "user_lname": "Lee"
-        }
-    ]
 
-    return render_template('listings.html', listings=dummy_listings)
+    # Retrieve all listings from the DB
+    listings = db.session.query(Listing).all()
+
+    # Pass the listings to the template
+    return render_template('listings.html', listings=listings)
 
 # ORLANDO
 
