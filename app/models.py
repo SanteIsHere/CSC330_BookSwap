@@ -24,6 +24,12 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(50), nullable=False, unique=True)
     pwd = db.Column(db.String(50), nullable=False)
 
+    # Establish relationship between 'User' and 'Book' tables
+    user_book = db.relationship('Book', backref='User')
+
+    # Establish relationship between 'User' and 'Listing' tables
+    user_listing = db.relationship('Listing', backref='User')
+
     def get_id(self):
         '''
         Retrieves the user's ID when logging in to the
@@ -34,7 +40,7 @@ class User(UserMixin, db.Model):
 
 class Book(db.Model):
 
-    __tablename__ = "Book"
+    __tablename__ = 'Book'
 
     bookID = db.Column(db.Integer, primary_key=True,
                        nullable=False, autoincrement=True)
@@ -46,7 +52,8 @@ class Book(db.Model):
     isbn = db.Column(db.Integer, nullable=False)
     author = db.Column(db.String(50), nullable=False)
     subject = db.Column(db.String(50), nullable=False)
-    notes = db.Column(db.String(50), nullable=False)
+    notes = db.Column(db.String(50), nullable=True)
+
 
 class Listing(db.Model):
 
@@ -58,13 +65,9 @@ class Listing(db.Model):
     bookID = db.Column(db.Integer, db.ForeignKey('Book.bookID'))
     userID = db.Column(db.Integer, db.ForeignKey('User.userID'))
 
-    # threadID = db.Column(db.Integer, primary_key=True,
-    #                      nullable=False, autoincrement=True)
-    # description = db.Column(db.String(50), nullable=False)
-    # timeStamp = db.Column(db.DateTime, nullable=False)
-    # location = db.Column(db.String(50), nullable=False)
-    # bookID = db.Column(db.Integer, db.ForeignKey('Book.bookID'))
-    # userID = db.Column(db.Integer, db.ForeignKey('User.userID'))
+    # Tie book to a listing
+    book = db.relationship('Book', backref='Listing')
+
 
 class Comment(db.Model):
     """
