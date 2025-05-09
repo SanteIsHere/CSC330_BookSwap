@@ -1,14 +1,16 @@
+/* Root document styling/variable declarations */
 :root {
     /* Define SCSU colors */
     /* For headings (text color) */
     --reflex-blue: rgb(0, 51, 153);
     /* Accent */
     --golden-yellow: rgb(255, 204, 64);
+    --cyan: rgb(0, 173, 235);
 }
 
 body {
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-    height: 100%;
+    /* height: 100%; */
 }
 
 h1 {
@@ -32,11 +34,12 @@ h1 {
     gap: 30px;
 }
 
+
+/* Styling for primary buttons */
 .btn-main {
     background-color: var(--golden-yellow);
     padding: 30px 10px;
     text-decoration: none;
-    /* width: 50%; */
     font-size: xx-large;
     text-align: center;
     color: var(--reflex-blue);
@@ -44,6 +47,7 @@ h1 {
     transition: all 0.25s ease;
 }
 
+/* Styling for secondary buttons */
 .btn-secondary {
     background-color: lightgray;
     padding: 20px;
@@ -56,23 +60,11 @@ h1 {
     transition: all 0.25 ease;
 }
 
+/* Hover styling for buttons */
 .btn-main:hover,
 btn-secondary:hover {
     opacity: 50%;
     text-decoration: underline;
-}
-
-#back-btn {
-    align-self: flex-start;
-}
-
-#logout-btn {
-    align-self: flex-end;
-    margin-left: auto;
-}
-
-#nav-logo {
-    align-self: flex-start;
 }
 
 nav {
@@ -89,6 +81,15 @@ nav {
     width: 100%;
 }
 
+.nav-start {
+    align-self: flex-start;
+}
+
+.nav-end {
+    align-self: flex-end;
+    margin-left: auto;
+}
+
 #form-cont {
     display: flex;
     flex-direction: column;
@@ -96,6 +97,7 @@ nav {
     gap: 10%;
 }
 
+/* Establish style and layout for all forms */
 form {
     display: flex;
     flex-direction: column;
@@ -104,6 +106,7 @@ form {
     align-items: center;
 }
 
+/* Style for all form input text fields */
 .form-text-field {
     background-color: lightgrey;
     color: black;
@@ -128,11 +131,13 @@ form {
     opacity: 0;
 }
 
+/* Style for form text area */
 .form-text-area-field {
     width: 60%;
     height: 20em;
 }
 
+/* Styling for form submission buttons */
 .form-submit {
     border: none;
     background-color: var(--golden-yellow);
@@ -142,36 +147,64 @@ form {
     transition: opacity 0.25s ease;
 }
 
+/* Hover styling for form submission buttons */
 .form-submit:hover {
     opacity: 50%;
 }
 
-/* Make listing image a set size */
-.listing-image {
+/* DEPRECATED: Make listing image a set size */
+/* .listing-image {
     width: 150px;
     height: 200px;
     object-fit: cover;
     border: 1px solid #ccc;
     border-radius: 6px;
     margin-bottom: 10px;
+} */
+
+/* Container for all listings */
+#listings-feed {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
 }
 
-/* Stylize each listing */
-.listing-card {
+
+/* Select all containers for listings */
+.listing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+}
+
+/* Set width for inner/child elements */
+.listing > * {
+    width: 100%;
+}
+
+/* Stylize the listing content container */
+.listing-details {
     padding: 20px;
-    margin: 20px auto;
-    width: 80%;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    background-color: whitesmoke;
+    border: 1px solid var(--cyan);
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     text-align: center; /* 🔥 this centers text */
 }
 
-.listing-details {
-    margin-top: 10px;
+#poster {
+    display: flex;
+    align-items: center;
 }
 
-.listing-comments {
-    margin-top: 15px;
+#poster>img {
+    width: 8%;
+}
+
+.posted-by {
+    font-style: italic;
+    color: var(--cyan);
+    font-weight: bold;
 }

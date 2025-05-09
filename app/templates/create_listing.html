@@ -6,11 +6,11 @@
         <div id="nav-elements">
             <!-- Logo now links to the profile page -->
             <a href="{{ url_for('main.profile') }}">
-                <img id="nav-logo" src="{{ url_for('static', filename='images/SCSU_LogoRGB.png') }}" style="width: 100px;">
+                <img class="nav-start" src="{{ url_for('static', filename='images/SCSU_LogoRGB.png') }}" style="width: 100px;">
             </a>
 
             <!-- Log out button on the right -->
-            <a id="logout-btn" class="btn-secondary" href="{{ url_for('main.logout') }}">Log Out</a>
+            <a class="btn-secondary nav-end" href="{{ url_for('main.logout') }}">Log Out</a>
         </div>
 
         <!-- Page heading -->

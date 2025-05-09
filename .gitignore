@@ -1,3 +1,7 @@
-*.pyc
-__pycache__/
-app/__pycache__/
+# Ignore virtual environments
+.venv/
+venv/
+# IDE files
+.vscode/
+# Python cached bytecode
+__pycache__

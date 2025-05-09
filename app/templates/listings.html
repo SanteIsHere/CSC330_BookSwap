@@ -1,3 +1,5 @@
+<!-- Template for the route displaying all user listings. -->
+
 {% extends 'base.html' %}
 
 {% block title %}View Listings{% endblock %}
@@ -7,37 +9,36 @@
     <div id="nav-elements">
         <!-- Logo links to profile -->
         <a href="{{ url_for('main.profile') }}">
-            <img id="nav-logo" src="{{ url_for('static', filename='images/SCSU_LogoRGB.png') }}" style="width: 100px;">
+            <img class="nav-start" src="{{ url_for('static', filename='images/SCSU_LogoRGB.png') }}" style="width: 100px;">
         </a>
 
-        <!-- Log out button -->
-        <a id="logout-btn" class="btn-secondary" href="{{ url_for('main.logout') }}">Log Out</a>
+        <!-- Log out button - redirects to 'Logout' route -->
+        <a class="btn-secondary nav-end" href="{{ url_for('main.logout') }}">Log Out</a>
     </div>
 
-    <h1>SCSU BOOK SWAP</h1>
-    <h2>VIEW LISTINGS</h2>
+    <!-- Page header -->
+    <h1>SCSU Book Swap Listings</h1>
 </nav>
 
+<!-- Container for ALL listings -->
 <div id="listings-feed">
+    <!-- Iterate through listings -->
     {% for listing in listings %}
-        <div class="listing-card">
-            <p class="posted-by">Posted by {{ listing.user_fname }} {{ listing.user_lname }}</p>
-
-            <img src="{{ url_for('static', filename='uploads/' + listing.image_filename) }}" alt="Book Image" class="listing-image">
-
+        <!-- Container for complete listing -->
+        <div class="listing">
+            <!-- User that posted the listing -->
+             <div id="poster">
+                <img class="prof-icon" src="{{ url_for('static', filename='images/prof_icon.png') }}">
+                <p> Posted by <span class="posted-by">{{ listing.User.fname }} {{ listing.User.lname}}</span></p>
+             </div>
+            
+            <!-- Container for details of the listing -->
             <div class="listing-details">
-                <h3>{{ listing.title }}</h3>
-                <p><strong>Author:</strong> {{ listing.author }}</p>
-                <p><strong>Course:</strong> {{ listing.course }}</p>
-                <p><strong>Price:</strong> ${{ listing.price }}</p>
+                <h3>{{ listing.book.bookTitle }}</h3>
+                <p><strong>Author:</strong> {{ listing.book.author }}</p>
+                <p><strong>Subject:</strong> {{ listing.book.subject }}</p>
+                <p><strong>Price:</strong> ${{ listing.book.listPrice }}</p>
             </div>
-
-            {% if listing.comments %}
-            <div class="listing-comments">
-                <h4>Comments:</h4>
-                <p>{{ listing.comments }}</p>
-            </div>
-            {% endif %}
         </div>
     {% endfor %}
 </div>
