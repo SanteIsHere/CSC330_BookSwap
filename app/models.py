@@ -68,19 +68,11 @@ class Listing(db.Model):
     # Tie book to a listing
     book = db.relationship('Book', backref='Listing')
 
+    # Tie comments to a listing
+    comments = db.relationship('Comment', backref='Listing')
+    # Should we use Lazy = true? 
 
 class Comment(db.Model):
-    """
-    Comment object to represent a comment in the system.
-
-    Attributes:
-        commentID (int): Integer of the comment ID. 
-        threadID (int): Integer of the thread ID.
-        userID (int): Integer of the user ID.
-        text (str): String of the comment text.
-        timeStamp (datetime): Date and time of the comment.
-
-    """
     __tablename__ = 'Comment'
 
     commentID = db.Column(db.Integer, primary_key=True,
@@ -89,6 +81,9 @@ class Comment(db.Model):
     userID = db.Column(db.Integer, db.ForeignKey('User.userID'))
     text = db.Column(db.String(500), nullable=False)
     timeStamp = db.Column(db.DateTime, nullable=False)
+
+    # Tie listing to a comment
+    user = db.relationship('User', backref='Comment')
 
 
 @login_manager.user_loader

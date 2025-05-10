@@ -38,6 +38,27 @@
                 <p><strong>Author:</strong> {{ listing.book.author }}</p>
                 <p><strong>Subject:</strong> {{ listing.book.subject }}</p>
                 <p><strong>Price:</strong> ${{ listing.book.listPrice }}</p>
+
+                <!-- Comment Button -->
+                 <button onclick="toggleCommentSection('{{ listing.book.userID }}')">Comments</button>
+
+                 <!-- Comment Section --> 
+                <div id="comment-section-{{ listing.book.userID }}" class="comment-section" style="display: none;">
+                    <form action="{{ url_for('main.add_comment', listing_id=listing.id) }}" method="POST">
+                        <textarea name="comment" placeholder="Add a comment..." required></textarea>
+                        <button type="submit">Submit</button>
+                    </form>
+                    <div class="comments">
+                        {% for comment in listing.comments %}
+                            <p><strong>{{ comment.User.fname }} {{ comment.User.lname }}:</strong> {{ comment.text }}</p>
+                        {% endfor %}
+
+                        <!-- Comment Form-->
+                        <form method="POST" action="{{ url_for('main.add_comment', listing_id=listing.id) }}">
+                            <textarea name="comment" placeholder="Add a comment..." required></textarea>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
             </div>
         </div>
     {% endfor %}

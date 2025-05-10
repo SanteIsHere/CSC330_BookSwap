@@ -1,5 +1,5 @@
 # Package imports
-from flask import Blueprint, render_template, redirect, url_for, flash, session
+from flask import Blueprint, render_template, redirect, url_for, flash, session, request
 # Imports for login functionality
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -7,6 +7,12 @@ from flask_login import login_user, logout_user, login_required, current_user
 from .forms import LoginForm, RegisterForm, CreateListingForm  # Forms for user input
 from .models import User, Listing, Book  # Models for DB entities
 from . import db  # Database instance import from `__init__.py`
+
+
+# Testing 
+from sqlalchemy.orm import joinedload
+from .models import Comment
+
 
 bp = Blueprint("main", __name__)
 
@@ -128,14 +134,29 @@ def view_listings():
     '''
 
     # Retrieve all listings from the DB
-    listings = db.session.query(Listing).all()
+    # listings = db.session.query(Listing).all()
+
+    listings = db.session.query(Listing).options(
+            joinedload(Listing.comment).joinedload(
+                        Comment.user)).all()
 
     # Pass the listings to the template
     return render_template('listings.html', listings=listings)
 
+
+@bp.route('/listings/<int:listing_id>/comment', methods=['POST'])
+@login_required
+def add_comment(listing_id):
+    content = request.form.get('comment')
+    new_comment = Comment(content=content, user_id=current_user.id, listingID=listing_id)
+    db.session.add('new_comment')
+    db.session.commit()
+    flash("Comment added!")
+    return redirect(url_for('main.view_listings'))
+
+
+
 # ORLANDO
-
-
 @bp.route('/logout')
 @login_required  # Only logged-in users should be able to log out
 def logout():
