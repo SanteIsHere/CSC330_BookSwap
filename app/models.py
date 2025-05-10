@@ -72,7 +72,7 @@ class Comment(db.Model):
     text = db.Column(db.String(500), nullable=False)
     timeStamp = db.Column(db.DateTime, nullable=False)
 
-    # Tie listing to a comment
+    # Tie comment to a user
     user = db.relationship('User', backref='comments')
 
 

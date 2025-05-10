@@ -6,13 +6,10 @@ from datetime import datetime
 
 # Local Imports
 from .forms import LoginForm, RegisterForm, CreateListingForm  # Forms for user input
-from .models import User, Listing, Book  # Models for DB entities
+from .models import User, Listing, Book, Comment  # Models for DB entities
 from . import db  # Database instance import from `__init__.py`
 
-
-# Testing 
-from sqlalchemy.orm import joinedload
-from .models import Comment
+from sqlalchemy.orm import joinedload # Efficiently get data for comments. 
 
 
 bp = Blueprint("main", __name__)
@@ -132,6 +129,8 @@ def create_listing():
 def view_listings():
     '''
     Route displaying ALL active listings.
+
+    Added try block for errors handling. 
     '''
     try:
         # Retrieve all listings with related data efficiently
@@ -142,6 +141,7 @@ def view_listings():
         ).order_by(Listing.timestamp.desc()).all()
         
         return render_template('listings.html', listings=listings)
+    
     except Exception as e:
         flash(f"An error occurred while loading listings: {str(e)}")
         return redirect(url_for('main.profile'))
@@ -149,6 +149,20 @@ def view_listings():
 @bp.route('/listing/<int:listing_id>/comment', methods=['POST'])
 @login_required
 def add_comment(listing_id):
+    '''
+    Route to add a new comment to a specific listing.
+    
+    Args:
+        listing_id (int): The ID of the listing to comment on
+        
+    Returns:
+        Redirects to the listings page after comment submission
+        
+    Note:
+        - Requires user authentication
+        - Handles empty comments and database errors
+        - Automatically timestamps comments
+    '''
     try:
         content = request.form.get('comment')
         if not content:
