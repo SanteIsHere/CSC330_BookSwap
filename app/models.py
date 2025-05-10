@@ -31,7 +31,6 @@ class User(UserMixin, db.Model):
 
 
 class Book(db.Model):
-
     __tablename__ = 'Book'
 
     bookID = db.Column(db.Integer, primary_key=True,
@@ -58,9 +57,9 @@ class Listing(db.Model):
 
     # Tie book to a listing
     book = db.relationship('Book', backref='Listing')
-
     # Tie comments to a listing
     comments = db.relationship('Comment', backref='Listing', lazy='select')
+
 
 class Comment(db.Model):
     __tablename__ = 'Comment'
@@ -72,7 +71,7 @@ class Comment(db.Model):
     text = db.Column(db.String(500), nullable=False)
     timeStamp = db.Column(db.DateTime, nullable=False)
 
-    # Tie comment to a user
+    # Tie comment to a user, specific to the comments feature. 
     user = db.relationship('User', backref='comments')
 
 
