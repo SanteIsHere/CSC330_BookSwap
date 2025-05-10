@@ -2,21 +2,20 @@
 {% block title %}Profile{% endblock %}
 {% block content %}
 <div id="form-cont">
-    <nav>
+    <nav id="profile-greeting">
         <div id="nav-elements">
             <a href="{{ url_for('main.profile') }}">
                 <img class="nav-start" src="{{ url_for('static', filename='images/SCSU_LogoRGB.png') }}"
                 style="width: 100px;">
             </a>
-            
-            <!-- TODO: Implement proper logout functionality (via route) -->
-            <a class="btn-secondary nav-end" href={{ url_for('main.logout') }}>Log Out</a>
+            <a class="btn-secondary nav-end" href="{{ url_for('main.logout') }}">Log Out</a>
         </div>
-        <h1>Hello {{ user.fname }}! What would you like to do?</h1>
+        <h1>Hello {{ user.fname }}!</h1>
+        <h1>What would you like to do?</h1>
     </nav>
     <div class="content-nav">
-        <a href={{ url_for('main.view_listings') }} class="btn-main">View Listings</a>
-        <a href={{ url_for('main.create_listing') }} class="btn-main">Create a Listing</a>
+        <a href="{{ url_for('main.view_listings') }}" class="btn-main">View Listings</a>
+        <a href="{{ url_for('main.create_listing') }}" class="btn-main">Create a Listing</a>
     </div>
 </div>
 {% endblock %}

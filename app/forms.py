@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm  # For form creation
 # Fields for forms
 from wtforms import StringField, DecimalField, SubmitField,\
-     PasswordField, TextAreaField, DateTimeField
+     PasswordField, TextAreaField, DateTimeField, SelectField
 # Validation mechanisms
 from wtforms.validators import DataRequired, Length, Email, ValidationError, Length
 import datetime
@@ -58,7 +58,7 @@ class CreateListingForm(FlaskForm):
     ])
 
     condition = StringField('Condition', validators=[
-        DataRequired(), Length(max=100)
+    DataRequired(), Length(max=100)
     ])
 
     listPrice = DecimalField('Asking Price ($)', validators=[
