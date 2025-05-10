@@ -3,17 +3,7 @@ from flask_login import UserMixin
 
 
 class User(UserMixin, db.Model):
-    """
-    User object to represent a user in the system.
 
-    Attributes: 
-        first_name (str): String of the users first name.
-        last_name (str): String of the users last name.
-        major (str): String of the user's major.
-        email (str): String of the user's email.
-        pwd (str): String of the user's password.
-
-    """
     __tablename__ = 'User'
 
     userID = db.Column(db.Integer, primary_key=True,
@@ -30,6 +20,8 @@ class User(UserMixin, db.Model):
     # Establish relationship between 'User' and 'Listing' tables
     listings = db.relationship('Listing', backref='User')
 
+
+
     def get_id(self):
         '''
         Retrieves the user's ID when logging in to the
@@ -39,7 +31,6 @@ class User(UserMixin, db.Model):
 
 
 class Book(db.Model):
-
     __tablename__ = 'Book'
 
     bookID = db.Column(db.Integer, primary_key=True,
@@ -56,7 +47,6 @@ class Book(db.Model):
 
 
 class Listing(db.Model):
-
     __tablename__ = "Listing"
 
     listingID = db.Column(db.Integer, primary_key=True,
@@ -67,20 +57,11 @@ class Listing(db.Model):
 
     # Tie book to a listing
     book = db.relationship('Book', backref='Listing')
+    # Tie comments to a listing
+    comments = db.relationship('Comment', backref='Listing', lazy='select')
 
 
 class Comment(db.Model):
-    """
-    Comment object to represent a comment in the system.
-
-    Attributes:
-        commentID (int): Integer of the comment ID. 
-        threadID (int): Integer of the thread ID.
-        userID (int): Integer of the user ID.
-        text (str): String of the comment text.
-        timeStamp (datetime): Date and time of the comment.
-
-    """
     __tablename__ = 'Comment'
 
     commentID = db.Column(db.Integer, primary_key=True,
@@ -89,6 +70,9 @@ class Comment(db.Model):
     userID = db.Column(db.Integer, db.ForeignKey('User.userID'))
     text = db.Column(db.String(500), nullable=False)
     timeStamp = db.Column(db.DateTime, nullable=False)
+
+    # Tie comment to a user, specific to the comments feature. 
+    user = db.relationship('User', backref='comments')
 
 
 @login_manager.user_loader

@@ -29,7 +29,7 @@
             <!-- User that posted the listing -->
              <div id="poster">
                 <img class="prof-icon" src="{{ url_for('static', filename='images/prof_icon.png') }}">
-                <p> Posted by <span class="posted-by">{{ listing.User.fname }} {{ listing.User.lname}}</span></p>
+                <p> Posted by <span class="posted-by">{{ listing.User.fname }} {{ listing.User.lname }}</span></p>
              </div>
             
             <!-- Container for details of the listing -->
@@ -38,8 +38,43 @@
                 <p><strong>Author:</strong> {{ listing.book.author }}</p>
                 <p><strong>Subject:</strong> {{ listing.book.subject }}</p>
                 <p><strong>Price:</strong> ${{ listing.book.listPrice }}</p>
+                <p><strong>Condition:</strong> {{ listing.book.condition }}</p>
+                {% if listing.book.notes %}
+                    <p><strong>Notes:</strong> {{ listing.book.notes }}</p>
+                {% endif %}
+
+                <!-- Comment Button -->
+                 <button class="comment-toggle" onclick="toggleCommentSection('{{ listing.listingID }}')">Comments</button>
+
+                 <!-- Comment Section --> 
+                <div id="comment-section-{{ listing.listingID }}" class="comment-section" style="display: none;">
+                    <div class="comments">
+                        {% for comment in listing.comments %}
+                            <div class="comment">
+                                <p><strong>{{ comment.user.fname }} {{ comment.user.lname }}:</strong> {{ comment.text }}</p>
+                                <small>{{ comment.timeStamp.strftime('%Y-%m-%d %H:%M') }}</small>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <form action="{{ url_for('main.add_comment', listing_id=listing.listingID) }}" method="POST">
+                        <textarea name="comment" placeholder="Add a comment..." required></textarea>
+                        <button type="submit">Submit Comment</button>
+                    </form>
+                </div>
             </div>
         </div>
     {% endfor %}
 </div>
+
+<script>
+function toggleCommentSection(listingId) {
+    const commentSection = document.getElementById(`comment-section-${listingId}`);
+    if (commentSection.style.display === 'none') {
+        commentSection.style.display = 'block';
+    } else {
+        commentSection.style.display = 'none';
+    }
+}
+</script>
 {% endblock %}
