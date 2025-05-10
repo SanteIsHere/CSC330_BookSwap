@@ -3,17 +3,7 @@ from flask_login import UserMixin
 
 
 class User(UserMixin, db.Model):
-    """
-    User object to represent a user in the system.
 
-    Attributes: 
-        first_name (str): String of the users first name.
-        last_name (str): String of the users last name.
-        major (str): String of the user's major.
-        email (str): String of the user's email.
-        pwd (str): String of the user's password.
-
-    """
     __tablename__ = 'User'
 
     userID = db.Column(db.Integer, primary_key=True,
@@ -29,6 +19,8 @@ class User(UserMixin, db.Model):
 
     # Establish relationship between 'User' and 'Listing' tables
     listings = db.relationship('Listing', backref='User')
+
+
 
     def get_id(self):
         '''
@@ -56,7 +48,6 @@ class Book(db.Model):
 
 
 class Listing(db.Model):
-
     __tablename__ = "Listing"
 
     listingID = db.Column(db.Integer, primary_key=True,
@@ -69,8 +60,7 @@ class Listing(db.Model):
     book = db.relationship('Book', backref='Listing')
 
     # Tie comments to a listing
-    comments = db.relationship('Comment', backref='Listing')
-    # Should we use Lazy = true? 
+    comments = db.relationship('Comment', backref='Listing', lazy='select')
 
 class Comment(db.Model):
     __tablename__ = 'Comment'
@@ -83,7 +73,7 @@ class Comment(db.Model):
     timeStamp = db.Column(db.DateTime, nullable=False)
 
     # Tie listing to a comment
-    user = db.relationship('User', backref='Comment')
+    user = db.relationship('User', backref='comments')
 
 
 @login_manager.user_loader

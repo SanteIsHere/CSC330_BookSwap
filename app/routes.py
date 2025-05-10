@@ -2,6 +2,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, session, request
 # Imports for login functionality
 from flask_login import login_user, logout_user, login_required, current_user
+from datetime import datetime
 
 # Local Imports
 from .forms import LoginForm, RegisterForm, CreateListingForm  # Forms for user input
@@ -132,26 +133,43 @@ def view_listings():
     '''
     Route displaying ALL active listings.
     '''
+    try:
+        # Retrieve all listings with related data efficiently
+        listings = db.session.query(Listing).options(
+            joinedload(Listing.book),
+            joinedload(Listing.User),
+            joinedload(Listing.comments).joinedload(Comment.user)
+        ).order_by(Listing.timestamp.desc()).all()
+        
+        return render_template('listings.html', listings=listings)
+    except Exception as e:
+        flash(f"An error occurred while loading listings: {str(e)}")
+        return redirect(url_for('main.profile'))
 
-    # Retrieve all listings from the DB
-    # listings = db.session.query(Listing).all()
-
-    listings = db.session.query(Listing).options(
-            joinedload(Listing.comment).joinedload(
-                        Comment.user)).all()
-
-    # Pass the listings to the template
-    return render_template('listings.html', listings=listings)
-
-
-@bp.route('/listings/<int:listing_id>/comment', methods=['POST'])
+@bp.route('/listing/<int:listing_id>/comment', methods=['POST'])
 @login_required
 def add_comment(listing_id):
-    content = request.form.get('comment')
-    new_comment = Comment(content=content, user_id=current_user.id, listingID=listing_id)
-    db.session.add('new_comment')
-    db.session.commit()
-    flash("Comment added!")
+    try:
+        content = request.form.get('comment')
+        if not content:
+            flash('Comment cannot be empty')
+            return redirect(url_for('main.view_listings'))
+            
+        listing = Listing.query.get_or_404(listing_id)
+        new_comment = Comment(
+            text=content,
+            userID=current_user.userID,
+            listingID=listing_id,
+            timeStamp=datetime.utcnow()
+        )
+        
+        db.session.add(new_comment)
+        db.session.commit()
+        flash("Comment added successfully!")
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Error adding comment: {str(e)}")
+    
     return redirect(url_for('main.view_listings'))
 
 
@@ -163,7 +181,7 @@ def logout():
     '''
     Route triggered when user logs out of the application.
     '''
-    logout_user()  # End the user’s session
+    logout_user()  # End the user's session
     flash("You have been logged out.")  # Optional message shown on next page
     # Send them back to the welcome page
     return redirect(url_for('main.welcome'))
