@@ -72,7 +72,7 @@
         {% endif %}
 
         <!-- Notes About Condition -->
-        {{ form.notes(placeholder="Tell us more about the condition...", class="form-text-area-field") }}
+        {{ form.notes(placeholder="Tell us more about the condition...", class="form-text-area-field", rows=3) }}
         {% if form.notes.errors %}
             <ul class="form-errors">
                 {% for error in form.notes.errors %}
