@@ -66,6 +66,7 @@ h1 {
     text-align: center;
     font-weight: bold;
     transition: all 0.25 ease;
+    border-radius: 8px;
 }
 
 /* Hover styling for buttons */
@@ -290,4 +291,45 @@ textarea {
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
+}
+
+.comment-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* ✅ centers the textarea and button */
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    gap: 10px; /* spacing between elements */
+}
+
+.comment-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.comment-section textarea {
+    width: 80%;
+    max-width: 500px;
+    height: 2.5em;
+    resize: vertical;
+}
+
+.comment-section button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: var(--golden-yellow);
+    color: var(--reflex-blue);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.comment-section button:hover {
+    opacity: 0.8;
 }
