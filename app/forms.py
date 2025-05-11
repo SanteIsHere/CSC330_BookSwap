@@ -49,9 +49,8 @@ class CreateListingForm(FlaskForm):
         DataRequired(), Length(max=100)
     ])
 
-    isbn = StringField('ISBN (only numbers)', validators=[
-        DataRequired(), Length(min=13, max=13)
-    ])
+    isbn = StringField('ISBN (13-digit number)', validators=[
+    DataRequired(), Length(min=13, max=13)])
 
     subject = StringField('Subject', validators=[
         DataRequired(), Length(max=100)

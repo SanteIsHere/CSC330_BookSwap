@@ -142,8 +142,13 @@ form {
 
 /* Style for form text area */
 .form-text-area-field {
-    width: 60%;
-    height: 20em;
+    width: calc(50% + 70px);  /* or adjust visually as needed */
+    box-sizing: border-box;
+    resize: vertical;
+    height: auto !important;      /* ✅ allow rows=2 to take control */
+    min-height: 0 !important;     /* ✅ override any inherited min height */
+    line-height: 1.2rem;          /* ✅ ensures row height behaves as expected */
+    padding: 8px;                 /* matches other form fields visually */
 }
 
 /* Styling for form submission buttons */
@@ -286,7 +291,7 @@ CSS for comments, this will be adjusted.
 
 textarea {
     width: 100%;
-    min-height: 80px;
+    min-height: 40px;
     margin: 10px 0;
     padding: 8px;
     border: 1px solid #ddd;
@@ -312,11 +317,25 @@ textarea {
     gap: 10px;
 }
 
+/*
 .comment-section textarea {
     width: 80%;
     max-width: 500px;
     height: 2.5em;
     resize: vertical;
+}
+*/
+
+.comment-section textarea {
+    width: 80%;
+    max-width: 500px;
+    resize: vertical;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+
+    height: auto;     /* ✅ allow rows=2 to take effect */
+    min-height: 0;    /* ✅ remove enforced minimum height */
 }
 
 .comment-section button {
