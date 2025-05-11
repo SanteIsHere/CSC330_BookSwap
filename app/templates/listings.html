@@ -58,8 +58,8 @@
                     </div>
 
                     <form action="{{ url_for('main.add_comment', listing_id=listing.listingID) }}" method="POST">
-                        <textarea name="comment" placeholder="Add a comment..." required></textarea>
-                        <button type="submit">Submit Comment</button>
+                        <textarea name="comment" rows="1" placeholder="Add a comment..." required></textarea>
+                        <button type="submit">Post Comment</button>
                     </form>
                 </div>
             </div>

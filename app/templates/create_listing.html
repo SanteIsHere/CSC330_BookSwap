@@ -41,8 +41,9 @@
                 {% endfor %}
             </ul>
         {% endif %}
-
-        {{ form.isbn(placeholder="ISBN (only numbers)", class="form-text-field") }}
+        
+        <!-- ISBN -->
+        {{ form.isbn(placeholder="ISBN (13-digit number)", class="form-text-field") }}
         {% if form.isbn.errors %}
             <ul class="form-errors">
                 {% for error in form.isbn.errors %}
@@ -72,7 +73,7 @@
         {% endif %}
 
         <!-- Notes About Condition -->
-        {{ form.notes(placeholder="Tell us more about the condition...", class="form-text-area-field", rows=3) }}
+        {{ form.notes(placeholder="Tell us more about the condition...", class="form-text-area-field", rows=2) }}
         {% if form.notes.errors %}
             <ul class="form-errors">
                 {% for error in form.notes.errors %}
@@ -109,7 +110,3 @@
     </form>
 </div>
 {% endblock %}
-
-
-
-
