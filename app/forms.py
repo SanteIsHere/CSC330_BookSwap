@@ -16,6 +16,16 @@ class LoginForm(FlaskForm):
     password = PasswordField('PASSWORD', validators=[DataRequired()])
     submit = SubmitField('LOGIN')
 
+    def validate_password(self, pwd):
+        '''
+        Ensure password matches the provided e-mail
+        '''
+        # Check if user exists with the email and associated password
+        if not User.query.filter_by(
+        pwd=pwd.data).first():
+            raise ValidationError("Invalid e-mail or password, try again!")
+
+
 
 class RegisterForm(FlaskForm):
     """ 
@@ -23,7 +33,7 @@ class RegisterForm(FlaskForm):
     for the user and writes the User's account to the database.
      """
     email = StringField('E-mail', validators=[
-        DataRequired(), Email(), Length(min=4)])
+        DataRequired(), Length(min=4)])
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
     major = StringField('Major', validators=[DataRequired()])

@@ -12,6 +12,14 @@
         {{ form.hidden_tag() }}
         {{ form.email(placeholder="SCSU E-mail Address", class="form-text-field") }}
         {{ form.password(placeholder="Password", class="form-text-field") }}
+        <!-- Indicate incorrect password usage -->
+        {% if form.password.errors %}
+            <div class="form-error-msg">
+                <img id="error-icon" src="{{ url_for('static', filename='images/caution.png') }}">
+                <p id="error-txt">{{ form.password.errors[-1] }}</p>
+            </div>
+        {% endif %}
+
         {{ form.submit(class="form-submit") }}
     </form>
 </div>

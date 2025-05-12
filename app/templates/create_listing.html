@@ -14,8 +14,8 @@
         </div>
 
         <!-- Page heading -->
-        <h1>SCSU BOOK SWAP</h1>
-        <h2>CREATE LISTING</h2>
+        <h1>SCSU Book Swap</h1>
+        <h2>Create Listing</h2>
     </nav>
 
     <!-- Add enctype to allow image uploads - DEPRECATED -->
@@ -95,11 +95,10 @@
         <!-- Original price -->
         {{ form.origPrice(placeholder="Original Purchase Price", class="form-text-field") }}
         {% if form.origPrice.errors %}
-            <ul class="form-errors">
-                {% for error in form.origPrice.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
+            <div class="form-error-msg">
+                <img id="error-icon" src="{{ url_for('static', filename='images/caution.png') }}">
+                <p id="error-txt">{{ form.origPrice.errors[-1] }}</p>
+            </div>
         {% endif %}
 
         <!-- Timestamp -->

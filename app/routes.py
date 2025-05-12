@@ -26,63 +26,48 @@ def welcome():
     '''
     return render_template("welcome.html")
 
-
 @bp.route('/login/', methods=['GET', 'POST'])
 def login():
     '''
     Login route - permitting user to enter their
     (valid) credentials to login to their account.
     '''
-    # Initialize login form
     login_form = LoginForm()
-
-    # Check if form was submitted
+ 
     if login_form.validate_on_submit():
-
-        # Attempt to retrieve exisiting user from the database - from input email
-        user = User.query.filter_by(email=login_form.email.data).first()
-
-        if user:
-            # If the user is successfully retrieved, log them in
+        # Attempt to retrieve user from the database
+        user = User.query.filter_by(email=login_form.email.data.lower()).first()
+ 
+        # If user exists AND password matches exactly
+        if user and user.pwd == login_form.password.data:
             login_user(user)
-            # And redirect to homepage
             return redirect(url_for('main.profile'))
         else:
-            # User not found
-            flash('Invalid username or password. Try again.')
-
-    # Render the `login.html` template
+            # Show error message below password field
+            login_form.password.errors.append('Invalid email or password.')
+ 
     return render_template('login.html', form=login_form)
-
 
 @bp.route('/register/', methods=['GET', 'POST'])
 def register():
-    '''
-    Register a new user to the application.
-    '''
-    # Initialize registration form
     reg_form = RegisterForm()
-
-    # Check if form was submitted and input data is validated
-    # if reg_form.validate_on_submit():
-    try:
-        # Create new user with form input
-        user = User(email=reg_form.email.data, fname=reg_form.first_name.data,
-                    lname=reg_form.last_name.data, major=reg_form.major.data,
-                    pwd=reg_form.password.data)
-
-        # Add new user to database
+ 
+    if reg_form.validate_on_submit():
+        # Create new user
+        user = User(
+            email=reg_form.email.data.lower(),
+            fname=reg_form.first_name.data,
+            lname=reg_form.last_name.data,
+            major=reg_form.major.data,
+            pwd=reg_form.password.data
+        )
+ 
         db.session.add(user)
         db.session.commit()
-        flash('Account Created! Redirecting to login page...')
-        # Redirect the user to the login page
+        flash('Account created! Redirecting to login...')
         return redirect(url_for('main.login'))
-    except sqlalchemy.exc.IntegrityError:
-        db.session.rollback()
-        flash("That email is already in use!")
-    finally:
-        # Render the `register.html` template
-        return render_template('register.html', form=reg_form)
+ 
+    return render_template('register.html', form=reg_form)
 
 
 @bp.route('/profile/')

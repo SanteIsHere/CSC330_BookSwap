@@ -181,6 +181,29 @@ form {
     opacity: 50%;
 }
 
+.form-error-msg {
+    display: flex;
+    flex-direction: row;
+    background-color: #f8d7da;
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 60px;
+    width: 50%;
+    gap: 10px;
+    align-items: center;
+    /* background-image: url('../images/caution.png'); */
+}
+
+#error-txt {
+    align-self: flex-start;
+    color: red;
+}
+
+#error-icon {
+    width: 15%;
+}
+
 /* DEPRECATED: Make listing image a set size */
 /* .listing-image {
     width: 150px;
