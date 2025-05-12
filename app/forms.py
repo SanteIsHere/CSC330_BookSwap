@@ -3,8 +3,9 @@ from flask_wtf import FlaskForm  # For form creation
 from wtforms import StringField, DecimalField, SubmitField,\
      PasswordField, TextAreaField, DateTimeField, SelectField
 # Validation mechanisms
-from wtforms.validators import DataRequired, Length, Email, ValidationError, Length
+from wtforms.validators import DataRequired, EqualTo, Length, Email, ValidationError, Length, email
 import datetime
+from .models import User
 
 
 class LoginForm(FlaskForm):
@@ -26,15 +27,25 @@ class RegisterForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
     major = StringField('Major', validators=[DataRequired()])
-    password = PasswordField('Create password', validators=[DataRequired()])
+    password = PasswordField('Create password', validators=[DataRequired(), EqualTo('confirm', message="Please ensure passwords match!")])
+    confirm = PasswordField('Verify your password', validators=[DataRequired()])
     submit = SubmitField('Create Account')
 
-    def validate_email(self, field):
+    def validate_email(self, email):
         """
         Ensure the email ends with '@southernct.edu'
         """
-        if not field.data.lower().endswith('@southernct.edu'):
+        if not email.data.lower().endswith('@southernct.edu'):
             raise ValidationError('E-mail must be a Southern CT address')
+    
+        # Check if e-mail already present in DB for an existing user
+        user = User.query.filter_by(email=email.data).first()
+
+        # If the email already exists and is tied to a user, throw a ValidationError
+        if user:
+            raise ValidationError("This email has already been used, try again!")
+
+        
 
 
 class CreateListingForm(FlaskForm):

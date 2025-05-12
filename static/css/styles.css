@@ -70,8 +70,7 @@ h1 {
 }
 
 /* Hover styling for buttons */
-.btn-main:hover,
-btn-secondary:hover {
+.btn-main:hover, .btn-secondary:hover {
     opacity: 50%;
     text-decoration: underline;
 }

@@ -3,6 +3,9 @@ from flask import Blueprint, render_template, redirect, url_for, flash, session,
 # Imports for login functionality
 from flask_login import login_user, logout_user, login_required, current_user
 from datetime import datetime
+from pytz import timezone
+import sqlalchemy
+from wtforms import ValidationError
 
 # Local Imports
 from .forms import LoginForm, RegisterForm, CreateListingForm  # Forms for user input
@@ -61,8 +64,8 @@ def register():
     reg_form = RegisterForm()
 
     # Check if form was submitted and input data is validated
-    if reg_form.validate_on_submit():
-
+    # if reg_form.validate_on_submit():
+    try:
         # Create new user with form input
         user = User(email=reg_form.email.data, fname=reg_form.first_name.data,
                     lname=reg_form.last_name.data, major=reg_form.major.data,
@@ -74,9 +77,12 @@ def register():
         flash('Account Created! Redirecting to login page...')
         # Redirect the user to the login page
         return redirect(url_for('main.login'))
-
-    # Render the `register.html` template
-    return render_template('register.html', form=reg_form)
+    except sqlalchemy.exc.IntegrityError:
+        db.session.rollback()
+        flash("That email is already in use!")
+    finally:
+        # Render the `register.html` template
+        return render_template('register.html', form=reg_form)
 
 
 @bp.route('/profile/')
@@ -174,7 +180,7 @@ def add_comment(listing_id):
             text=content,
             userID=current_user.userID,
             listingID=listing_id,
-            timeStamp=datetime.utcnow()
+            timeStamp=datetime.now(timezone('US/Eastern'))
         )
         
         db.session.add(new_comment)
